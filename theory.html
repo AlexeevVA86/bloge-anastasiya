@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Теория — От идеи до праздника</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Montserrat', sans-serif; background-color: #fef6f0; color: #4a3728; line-height: 1.6; padding: 0 20px; }
+    .wrapper { max-width: 1300px; margin: 0 auto; padding: 20px 0; }
+    header { display: flex; align-items: center; padding: 20px 0; border-bottom: 2px solid #e6a17a; margin-bottom: 30px; }
+    .logo { font-size: 1.8rem; font-weight: 700; color: #b85c3a; display: flex; align-items: center; gap: 10px; text-decoration: none; }
+    nav ul { display: flex; list-style: none; gap: 24px; flex-wrap: wrap; }
+    nav ul li a { text-decoration: none; color: #4a3728; font-weight: 500; font-size: 0.95rem; transition: color 0.3s; padding-bottom: 4px; border-bottom: 2px solid transparent; }
+    nav ul li a:hover { color: #b85c3a; }
+    nav ul li a.active { color: #b85c3a; border-bottom-color: #b85c3a; font-weight: 600; }
+    .page-layout { display: grid; grid-template-columns: 1fr 260px; gap: 36px; align-items: start; }
+    .main-column { display: flex; flex-direction: column; gap: 40px; }
+    .rubric { background: #ffffff; border-radius: 20px; box-shadow: 0 8px 24px rgba(74,55,40,0.08); padding: 35px 40px; transition: box-shadow 0.3s; }
+    .rubric:hover { box-shadow: 0 12px 32px rgba(74,55,40,0.12); }
+    .rubric-header { display: flex; align-items: center; gap: 14px; margin-bottom: 28px; }
+    .rubric-header .icon { font-size: 2.6rem; line-height: 1; }
+    .rubric-header h2 { font-size: 1.9rem; font-weight: 700; color: #b85c3a; }
+    .rubric-block { margin-bottom: 28px; }
+    .rubric-block:last-child { margin-bottom: 0; }
+    .rubric-block h3 { font-size: 1.15rem; font-weight: 600; color: #4a3728; margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
+    .rubric-block p { font-size: 0.98rem; color: #4a3728; margin-bottom: 10px; padding-left: 28px; }
+    .sidebar { background: #fff; border-radius: 20px; box-shadow: 0 8px 24px rgba(74,55,40,.08); padding: 26px 22px; position: sticky; top: 20px; }
+    .sidebar .nav-title { font-weight: 700; font-size: 1.05rem; color: #b85c3a; border-left: 4px solid #e6a17a; padding-left: 12px; margin-bottom: 14px; }
+    .sidebar ul { list-style: none; }
+    .sidebar ul li { margin-bottom: 4px; }
+    .sidebar ul li a { display: flex; align-items: center; gap: 8px; text-decoration: none; color: #4a3728; padding: 9px 13px; border-radius: 12px; font-weight: 500; font-size: 0.93rem; transition: all 0.2s; }
+    .sidebar ul li a:hover { background: #e6a17a; color: #fff; padding-left: 18px; }
+    .sidebar ul li a.active { background: #b85c3a; color: #fff; font-weight: 600; }
+    .quick-nav { margin-top: 30px; padding-top: 20px; border-top: 2px solid #e6a17a; }
+    .quick-nav h4 { font-weight: 600; font-size: 1rem; color: #4a3728; margin-bottom: 16px; }
+    .quick-nav ul { list-style: none; }
+    .quick-nav ul li { margin-bottom: 10px; }
+    .quick-nav ul li a { text-decoration: none; color: #4a3728; font-weight: 500; font-size: 0.92rem; transition: color 0.3s; display: flex; align-items: center; gap: 8px; }
+    .quick-nav ul li a:hover { color: #b85c3a; }
+    .quick-nav ul li a::before { content: "→"; color: #e6a17a; font-weight: 700; }
+    footer { margin-top: 60px; padding: 25px 0; text-align: center; border-top: 2px solid #e6a17a; color: #4a3728; font-weight: 500; font-size: 0.95rem; }
+    @media (max-width: 800px) {
+      .page-layout { grid-template-columns: 1fr; }
+      .sidebar { position: static; }
+      header { flex-direction: column; align-items: flex-start; }
+      .rubric { padding: 25px 20px; }
+      .rubric-header h2 { font-size: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+<div class="wrapper">
+  <header>
+    <a href="index.html" class="logo">🎉 От идеи до праздника</a>
+  </header>
+
+  <div class="page-layout">
+    <div class="main-column">
+
+      <section class="rubric" id="concept">
+        <div class="rubric-header">
+          <span class="icon">🎯</span>
+          <h2>Концепция и планирование</h2>
+        </div>
+        <div class="rubric-block">
+          <h3>💡 Что такое концепция праздника</h3>
+          <p>Концепция — это стержень, на который нанизываются все элементы события: от цвета приглашений до десерта. Она превращает набор активностей в целостную историю, которая запоминается гостям.</p>
+          <p>Продуманная концепция экономит время и деньги: вы не тратите ресурсы на разрозненные идеи, а действуете в единой логике. Если вы выбрали стиль «Богемная вечеринка под открытым небом», то и меню, и музыка, и дресс-код работают на эту атмосферу.</p>
+        </div>
+        <div class="rubric-block">
+          <h3>📌 Как поставить цель праздника</h3>
+          <p>Цель должна быть конкретной и измеримой — используйте SMART. Вместо размытого «устроить день рождения» сформулируйте: «создать вечер в стиле 90-х для 20 человек с живой музыкой и фотозоной».</p>
+          <p>Чёткая цель определяет бюджет, формат и список подрядчиков. Когда цель сформулирована, вы легко ответите на любой вопрос: «Нужен ли сюда этот элемент?» — и это отсекает лишнее.</p>
+        </div>
+        <div class="rubric-block">
+          <h3>💰 Бюджет: с чего начать</h3>
+          <p>Три главные статьи расходов любого праздника — площадка, угощение и развлечения. На них уходит до 80% средств. Принцип 50/30/20 работает безотказно: 50% — площадка и еда, 30% — развлечения, 20% — всё остальное.</p>
+          <p>Не бойтесь торговаться с подрядчиками: многие закладывают запас на скидку. Запрашивайте сметы у трёх-четырёх компаний и сравнивайте — разница может достигать 40%.</p>
+        </div>
+        <div class="rubric-block">
+          <h3>📍 Выбор площадки</h3>
+          <p>Критерии, которые нельзя игнорировать: вместимость, локация, техническое оснащение (свет, звук, розетки) и цена. Всегда посещайте площадку лично — обратите внимание на акустику, запахи, состояние туалетов.</p>
+          <p>Спросите про ограничения по шуму и времени. Лучше потратить день на осмотр, чем получить сюрприз в день события. Проверьте, есть ли парковка и как добираться на общественном транспорте.</p>
+        </div>
+      </section>
+
+      <section class="rubric" id="team">
+        <div class="rubric-header">
+          <span class="icon">👥</span>
+          <h2>Команда и ресурсы</h2>
+        </div>
+        <div class="rubric-block">
+          <h3>🤝 Зачем нужна команда</h3>
+          <p>Делегирование — суперсила организатора. Один человек физически не может контролировать одновременно кухню, звук, рассадку гостей и ведущего. Попытка всё сделать самому ведёт к выгоранию и ошибкам.</p>
+          <p>Даже небольшое событие требует минимум двух человек: один работает с гостями, другой — с технической стороной. Когда вы уверены в каждом участнике команды, вы можете сосредоточиться на общей картине праздника.</p>
+        </div>
+        <div class="rubric-block">
+          <h3>🎭 Роли в команде праздника</h3>
+          <p>Координатор — главный дирижёр, держит в голове тайминг и связи между подрядчиками. Декоратор отвечает за визуал и атмосферу. Техник следит за светом, звуком и проектором.</p>
+          <p>Фотограф ловит эмоции, а ведущий управляет настроением гостей. У каждого должен быть письменный бриф, а на мероприятии — рация или чат-канал для оперативной связи.</p>
+        </div>
+        <div class="rubric-block">
+          <h3>🔍 Как найти и проверить подрядчиков</h3>
+          <p>Портфолио, отзывы и договор — святая троица. Не верьте только словам: запросите примеры работ, свяжитесь с прошлыми клиентами. Договор фиксирует сроки, бюджет, ответственность за срыв и порядок возврата предоплаты.</p>
+          <p>Предоплата обычно составляет 30–50%, не соглашайтесь на 100% заранее. Обсудите план Б на случай болезни подрядчика. Надёжный исполнитель сам предложит замену.</p>
+        </div>
+        <div class="rubric-block">
+          <h3>⏳ Тайминг-план</h3>
+          <p>Run-of-show (ROS) — почасовое расписание, в котором расписано всё: от приезда курьера до финального фейерверка. ROS нужен каждому члену команды, чтобы понимать, что делать в каждый момент.</p>
+          <p>Составляйте тайминг с запасом 15–20 минут на непредвиденные задержки. После мероприятия ROS поможет проанализировать, где были узкие места, и улучшить следующее событие.</p>
+        </div>
+      </section>
+
+      <section class="rubric" id="scenario">
+        <div class="rubric-header">
+          <span class="icon">🎬</span>
+          <h2>Сценарий и проведение</h2>
+        </div>
+        <div class="rubric-block">
+          <h3>🎭 Структура праздника</h3>
+          <p>Классическая драматургия работает и для событий: три акта — встреча гостей, кульминация и финал. Первый акт знакомит с пространством и настроением, второй даёт эмоциональный пик (конкурсы, сюрприз, хедлайнер), третий мягко завершает вечер.</p>
+          <p>Чередуйте активные фазы с расслабленными: танец — фуршет — конкурс — фотосессия. Не должно быть «провисаний» дольше 20 минут, когда гости начинают скучать.</p>
+        </div>
+        <div class="rubric-block">
+          <h3>🎤 Роль ведущего</h3>
+          <p>Профессиональный ведущий стоит денег, но знает, как раскрутить застенчивую компанию, удержать внимание и сгладить паузы. Друг-ведущий — бесплатно, но может не справиться с большой аудиторией.</p>
+          <p>Выбирайте исходя из сложности сценария и числа гостей. Для камерного ужина подойдёт и друг, для свадьбы на 100 человек лучше нанять профессионала. Обязательно проведите личную встречу — энергия ведущего должна совпадать с вашей.</p>
+        </div>
+        <div class="rubric-block">
+          <h3>⚠️ Форс-мажоры и план Б</h3>
+          <p>Топ-5 типичных проблем: опоздание артиста, внезапная гроза на улице, отключение света, неисправный проектор и нехватка еды. Для каждой проблемы заранее продумайте запасной вариант.</p>
+          <p>Держите чек-лист форс-мажоров на телефоне. Объясните команде: если случается кризис, каждый знает свою роль. Спокойствие организатора передаётся всем вокруг — это важнее любого плана.</p>
+        </div>
+        <div class="rubric-block">
+          <h3>📋 После праздника: финальный отчёт</h3>
+          <p>Когда гости разошлись, составьте финальный отчёт: фактические расходы vs. плановый бюджет, отзывы подрядчиков, ошибки и находки. Соберите обратную связь от гостей через короткую анкету.</p>
+          <p>Документация каждого праздника формирует вашу базу знаний. Поблагодарите команду и подрядчиков — хорошие отношения приводят к скидкам и приоритетному бронированию в будущем.</p>
+        </div>
+      </section>
+
+    </div>
+
+    <aside class="sidebar">
+      <div class="nav-title">📂 Разделы блога</div>
+      <ul>
+        <li><a href="index.html">🏠 Главная</a></li>
+        <li><a href="theory.html" class="active">📖 Теория</a></li>
+        <li><a href="practice.html">🔧 Практика</a></li>
+        <li><a href="media.html">🎬 Медиа</a></li>
+        <li><a href="labs.html">📚 Лабораторные работы</a></li>
+        <li><a href="about.html">🧑‍🎤 Об авторе</a></li>
+      </ul>
+      <div class="quick-nav">
+        <h4>🔎 Рубрики теории</h4>
+        <ul>
+          <li><a href="#concept">🎯 Концепция и планирование</a></li>
+          <li><a href="#team">👥 Команда и ресурсы</a></li>
+          <li><a href="#scenario">🎬 Сценарий и проведение</a></li>
+        </ul>
+      </div>
+    </aside>
+  </div>
+
+  <footer>© 2026 «От идеи до праздника»</footer>
+</div>
+</body>
+</html>

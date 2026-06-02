@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Практика — От идеи до праздника</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Montserrat', sans-serif; background: #fef6f0; color: #4a3728; line-height: 1.6; padding: 0 20px; }
+    .wrapper { max-width: 1100px; margin: 0 auto; padding: 20px 0 60px; }
+    header { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; padding: 20px 0; border-bottom: 2px solid #e6a17a; margin-bottom: 40px; gap: 16px; }
+    .logo { font-size: 1.8rem; font-weight: 700; color: #b85c3a; text-decoration: none; display: flex; align-items: center; gap: 10px; }
+    nav ul { display: flex; list-style: none; gap: 22px; flex-wrap: wrap; }
+    nav ul li a { text-decoration: none; color: #4a3728; font-weight: 500; font-size: 0.95rem; transition: color .3s; border-bottom: 2px solid transparent; padding-bottom: 3px; }
+    nav ul li a:hover { color: #b85c3a; }
+    nav ul li a.active { color: #b85c3a; border-bottom-color: #b85c3a; font-weight: 600; }
+
+    .page-layout { display: grid; grid-template-columns: 1fr 260px; gap: 36px; align-items: start; }
+    .sidebar { background: #fff; border-radius: 20px; box-shadow: 0 8px 24px rgba(74,55,40,.08); padding: 26px 22px; position: sticky; top: 20px; }
+    .sidebar .nav-title { font-weight: 700; font-size: 1.05rem; color: #b85c3a; border-left: 4px solid #e6a17a; padding-left: 12px; margin-bottom: 14px; }
+    .sidebar ul { list-style: none; }
+    .sidebar ul li { margin-bottom: 4px; }
+    .sidebar ul li a { display: flex; align-items: center; gap: 8px; text-decoration: none; color: #4a3728; padding: 9px 13px; border-radius: 12px; font-weight: 500; font-size: 0.93rem; transition: all 0.2s; }
+    .sidebar ul li a:hover { background: #e6a17a; color: #fff; padding-left: 18px; }
+    .sidebar ul li a.active { background: #b85c3a; color: #fff; font-weight: 600; }
+    @media (max-width: 800px) { .page-layout { grid-template-columns: 1fr; } .sidebar { position: static; } }
+
+    /* Page title */
+    .page-title { text-align: center; margin-bottom: 44px; }
+    .page-title h1 { font-size: 2.4rem; font-weight: 700; color: #b85c3a; margin-bottom: 8px; }
+    .page-title p { font-size: 1.05rem; color: #7f5d4c; max-width: 600px; margin: 0 auto; }
+
+    /* Steps */
+    .steps-container { display: flex; flex-direction: column; gap: 0; position: relative; }
+    .steps-container::before {
+      content: ''; position: absolute; left: 52px; top: 60px; bottom: 60px;
+      width: 3px; background: linear-gradient(to bottom, #e6a17a, #b85c3a, #e6a17a);
+      border-radius: 2px; z-index: 0;
+    }
+    .step { display: flex; gap: 32px; align-items: flex-start; background: #fff; border-radius: 20px; padding: 34px 38px; box-shadow: 0 8px 24px rgba(74,55,40,.07); margin-bottom: 24px; position: relative; z-index: 1; transition: box-shadow .3s; }
+    .step:hover { box-shadow: 0 14px 36px rgba(184,92,58,.13); }
+    .step-num { flex-shrink: 0; width: 56px; height: 56px; border-radius: 50%; background: linear-gradient(135deg, #e6a17a, #b85c3a); display: flex; align-items: center; justify-content: center; font-size: 1.5rem; font-weight: 700; color: #fff; box-shadow: 0 4px 14px rgba(184,92,58,.35); }
+    .step-body { flex: 1; }
+    .step-body h2 { font-size: 1.4rem; font-weight: 700; color: #b85c3a; margin-bottom: 14px; display: flex; align-items: center; gap: 10px; }
+    .step-body .description { font-size: 0.97rem; color: #4a3728; margin-bottom: 18px; }
+    .step-body h3 { font-size: 1rem; font-weight: 600; color: #4a3728; margin-bottom: 10px; margin-top: 18px; }
+    .checklist { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+    .checklist li { display: flex; align-items: flex-start; gap: 12px; font-size: 0.95rem; padding: 10px 14px; background: #fef6f0; border-radius: 12px; }
+    .checklist li .check { width: 22px; height: 22px; border-radius: 6px; border: 2px solid #e6a17a; flex-shrink: 0; margin-top: 1px; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; color: #b85c3a; font-weight: 700; }
+    .checklist li .check.done { background: #e6a17a; border-color: #e6a17a; color: #fff; }
+    .step-tip { margin-top: 18px; background: linear-gradient(135deg, #fde8d8, #fdf0e6); border-left: 4px solid #e6a17a; border-radius: 0 12px 12px 0; padding: 14px 18px; font-size: 0.9rem; color: #5a3c2c; }
+    .step-tip strong { color: #b85c3a; }
+
+    /* Final result */
+    .final-block { background: linear-gradient(135deg, #b85c3a, #d9845e); border-radius: 20px; padding: 40px; text-align: center; margin-top: 14px; }
+    .final-block h2 { font-size: 1.7rem; font-weight: 700; color: #fff; margin-bottom: 14px; }
+    .final-block p { font-size: 1rem; color: rgba(255,255,255,.9); max-width: 540px; margin: 0 auto; }
+
+    footer { margin-top: 50px; padding: 22px 0; text-align: center; border-top: 2px solid #e6a17a; font-size: 0.9rem; color: #4a3728; font-weight: 500; }
+    footer span { color: #b85c3a; }
+
+    @media (max-width: 700px) {
+      .step { flex-direction: column; gap: 16px; padding: 22px 18px; }
+      .steps-container::before { display: none; }
+      .page-title h1 { font-size: 1.7rem; }
+    }
+  </style>
+</head>
+<body>
+<div class="wrapper">
+  <header>
+    <a href="index.html" class="logo">🎉 От идеи до праздника</a>
+  </header>
+
+  <div class="page-layout">
+  <div>
+
+  <div class="page-title">
+    <h1>🔧 Организуй праздник за 5 шагов</h1>
+    <p>Пошаговая инструкция от идеи до финала — следуй плану и всё получится</p>
+  </div>
+
+  <div class="steps-container">
+
+    <!-- Шаг 1 -->
+    <div class="step">
+      <div class="step-num">1</div>
+      <div class="step-body">
+        <h2>🎯 Придумай концепцию</h2>
+        <p class="description">Любой праздник начинается с вопроса: «Что мы хотим создать?» Сформулируй идею так, чтобы она подходила всем гостям. Чёткая концепция — основа всех решений.</p>
+        <h3>Сделай это:</h3>
+        <ul class="checklist">
+          <li><span class="check done">✓</span> Запиши повод и дату мероприятия</li>
+          <li><span class="check done">✓</span> Определи стиль или тему (например: «Лето в Тоскане», «Ретро-вечеринка 80-х»)</li>
+          <li><span class="check done">✓</span> Составь список гостей — он определит формат</li>
+          <li><span class="check">☐</span> Запиши 3–5 ключевых ощущений, которые должны остаться у гостей</li>
+          <li><span class="check">☐</span> Найди 5–10 референсов (фото, сайты, видео) для вдохновения</li>
+        </ul>
+        <div class="step-tip"><strong>💡 Совет:</strong> Задай себе вопрос: «Если бы этот праздник был фильмом, каков его жанр?» Романтическая комедия? Приключение? Уютная сказка? Это поможет передать настроение всей команде.</div>
+      </div>
+    </div>
+
+    <!-- Шаг 2 -->
+    <div class="step">
+      <div class="step-num">2</div>
+      <div class="step-body">
+        <h2>💰 Составь бюджет</h2>
+        <p class="description">Деньги — один из главных ограничителей и одновременно инструмент. Чёткий бюджет защищает от непредвиденных расходов и помогает расставить приоритеты.</p>
+        <h3>Сделай это:</h3>
+        <ul class="checklist">
+          <li><span class="check done">✓</span> Определи общую сумму, которую готов потратить</li>
+          <li><span class="check done">✓</span> Раздели бюджет: 50% — площадка+еда, 30% — развлечения, 20% — прочее</li>
+          <li><span class="check done">✓</span> Запроси сметы минимум у 3 подрядчиков по каждой позиции</li>
+          <li><span class="check">☐</span> Заложи резервный фонд 10–15% от общей суммы</li>
+          <li><span class="check">☐</span> Зафиксируй все договорённости письменно</li>
+        </ul>
+        <div class="step-tip"><strong>💡 Совет:</strong> Веди таблицу расходов в реальном времени — не жди финала, чтобы подвести итоги. Так ты всегда знаешь, сколько осталось и где можно сэкономить.</div>
+      </div>
+    </div>
+
+    <!-- Шаг 3 -->
+    <div class="step">
+      <div class="step-num">3</div>
+      <div class="step-body">
+        <h2>👥 Собери команду и выбери площадку</h2>
+        <p class="description">Одному невозможно контролировать всё в день события. Распредели роли заранее и выбери площадку, которая соответствует концепции.</p>
+        <h3>Сделай это:</h3>
+        <ul class="checklist">
+          <li><span class="check done">✓</span> Назначь координатора, декоратора, фотографа, ответственного за звук</li>
+          <li><span class="check done">✓</span> Лично посети 2–3 площадки и проверь: размер, звук, свет, парковку</li>
+          <li><span class="check done">✓</span> Заключи договор с площадкой и зафиксируй время аренды</li>
+          <li><span class="check">☐</span> Создай общий чат команды с единым каналом связи</li>
+          <li><span class="check">☐</span> Проведи установочную встречу — каждый должен знать свою роль</li>
+        </ul>
+        <div class="step-tip"><strong>💡 Совет:</strong> Попроси каждого члена команды прочитать бриф и письменно подтвердить, что он понял задачу. Это звучит формально, но экономит часы объяснений в день мероприятия.</div>
+      </div>
+    </div>
+
+    <!-- Шаг 4 -->
+    <div class="step">
+      <div class="step-num">4</div>
+      <div class="step-body">
+        <h2>📋 Напиши сценарий и тайминг</h2>
+        <p class="description">Сценарий — это скелет праздника. Без него событие рассыпается на отдельные эпизоды. Чёткий тайминг держит всю команду в синхронизации.</p>
+        <h3>Сделай это:</h3>
+        <ul class="checklist">
+          <li><span class="check done">✓</span> Раздели праздник на три акта: встреча гостей, кульминация, финал</li>
+          <li><span class="check done">✓</span> Пропиши Run-of-Show: каждый блок по времени с точностью до 15 минут</li>
+          <li><span class="check done">✓</span> Включи активные и расслабленные блоки, чередуй их</li>
+          <li><span class="check">☐</span> Пропиши план Б для топ-5 возможных форс-мажоров</li>
+          <li><span class="check">☐</span> Разошли тайминг всем участникам команды за 3 дня до события</li>
+        </ul>
+        <div class="step-tip"><strong>💡 Совет:</strong> Сделай распечатанную «шпаргалку» тайминга на один лист — бери её с собой в день праздника. Приложения разряжаются, бумага — никогда.</div>
+      </div>
+    </div>
+
+    <!-- Шаг 5 -->
+    <div class="step">
+      <div class="step-num">5</div>
+      <div class="step-body">
+        <h2>🎉 Проведи и подведи итоги</h2>
+        <p class="description">День X наступил. Доверяй плану, доверяй команде. После финала — не забудь зафиксировать результаты и поблагодарить всех участников.</p>
+        <h3>Сделай это:</h3>
+        <ul class="checklist">
+          <li><span class="check done">✓</span> Прибудь на площадку за 2 часа до начала — проверь всё лично</li>
+          <li><span class="check done">✓</span> Не пытайся делать всё самостоятельно — доверяй команде</li>
+          <li><span class="check done">✓</span> Веди краткие заметки о ходе события прямо во время</li>
+          <li><span class="check">☐</span> После праздника: сравни факт с бюджетом и таймингом</li>
+          <li><span class="check">☐</span> Собери обратную связь от гостей и команды (анкета из 3–5 вопросов)</li>
+          <li><span class="check">☐</span> Напиши финальный отчёт: что сработало, что улучшить</li>
+        </ul>
+        <div class="step-tip"><strong>💡 Совет:</strong> Лучшее, что ты можешь сделать после праздника — поблагодарить каждого подрядчика и члена команды лично. Хорошие отношения — это лучший актив организатора на следующем событии.</div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="final-block">
+    <h2>🏆 Ты справился!</h2>
+    <p>5 шагов пройдены — праздник создан. Каждое следующее мероприятие будет лучше предыдущего. Теперь ты знаешь систему, а остальное — дело практики.</p>
+  </div>
+
+  </div><!-- /content -->
+
+  <aside class="sidebar">
+    <div class="nav-title">📂 Разделы блога</div>
+    <ul>
+      <li><a href="index.html">🏠 Главная</a></li>
+      <li><a href="theory.html">📖 Теория</a></li>
+      <li><a href="practice.html" class="active">🔧 Практика</a></li>
+      <li><a href="media.html">🎬 Медиа</a></li>
+      <li><a href="labs.html">📚 Лабораторные работы</a></li>
+      <li><a href="about.html">🧑‍🎤 Об авторе</a></li>
+    </ul>
+  </aside>
+
+  </div><!-- /page-layout -->
+
+  <footer>© 2026 <span>«От идеи до праздника»</span> · Алексеева Анастасия Вячеславовна</footer>
+</div>
+</body>
+</html>

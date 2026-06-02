@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Об авторе — От идеи до праздника</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Montserrat', sans-serif; background: #fef6f0; color: #4a3728; line-height: 1.6; padding: 0 20px; }
+    .wrapper { max-width: 1100px; margin: 0 auto; padding: 20px 0 60px; }
+    header { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; padding: 20px 0; border-bottom: 2px solid #e6a17a; margin-bottom: 40px; gap: 16px; }
+    .logo { font-size: 1.8rem; font-weight: 700; color: #b85c3a; text-decoration: none; display: flex; align-items: center; gap: 10px; }
+    nav ul { display: flex; list-style: none; gap: 22px; flex-wrap: wrap; }
+    nav ul li a { text-decoration: none; color: #4a3728; font-weight: 500; font-size: 0.95rem; transition: color .3s; border-bottom: 2px solid transparent; padding-bottom: 3px; }
+    nav ul li a:hover { color: #b85c3a; }
+    nav ul li a.active { color: #b85c3a; border-bottom-color: #b85c3a; font-weight: 600; }
+
+    .page-layout { display: grid; grid-template-columns: 1fr 260px; gap: 36px; align-items: start; }
+    .sidebar { background: #fff; border-radius: 20px; box-shadow: 0 8px 24px rgba(74,55,40,.08); padding: 26px 22px; position: sticky; top: 20px; }
+    .sidebar .nav-title { font-weight: 700; font-size: 1.05rem; color: #b85c3a; border-left: 4px solid #e6a17a; padding-left: 12px; margin-bottom: 14px; }
+    .sidebar ul { list-style: none; }
+    .sidebar ul li { margin-bottom: 4px; }
+    .sidebar ul li a { display: flex; align-items: center; gap: 8px; text-decoration: none; color: #4a3728; padding: 9px 13px; border-radius: 12px; font-weight: 500; font-size: 0.93rem; transition: all 0.2s; }
+    .sidebar ul li a:hover { background: #e6a17a; color: #fff; padding-left: 18px; }
+    .sidebar ul li a.active { background: #b85c3a; color: #fff; font-weight: 600; }
+    @media (max-width: 800px) { .page-layout { grid-template-columns: 1fr; } .sidebar { position: static; } }
+
+    /* Hero */
+    .hero {
+      display: flex; gap: 50px; align-items: flex-start; flex-wrap: wrap;
+      background: #fff; border-radius: 24px; padding: 44px 50px;
+      box-shadow: 0 10px 30px rgba(74,55,40,.08); margin-bottom: 36px;
+    }
+    .avatar {
+      flex-shrink: 0; width: 180px; height: 180px; border-radius: 50%;
+      object-fit: cover;
+      background: linear-gradient(135deg, #e6a17a 0%, #b85c3a 100%);
+      box-shadow: 0 8px 24px rgba(184,92,58,.3);
+      display: block;
+    }
+    .avatar.img-fallback {
+      display: flex; align-items: center; justify-content: center;
+      font-size: 5rem; color: #fff;
+    }
+    .avatar.img-fallback::after { content: "👩"; }
+    .hero-text { flex: 1; min-width: 220px; }
+    .hero-text h1 { font-size: 2.2rem; font-weight: 700; color: #b85c3a; margin-bottom: 6px; line-height: 1.2; }
+    .hero-text .subtitle { font-size: 1rem; color: #e6a17a; font-weight: 500; margin-bottom: 20px; }
+    .hero-text p { font-size: 0.98rem; margin-bottom: 12px; }
+    .hero-text p:last-child { margin-bottom: 0; }
+
+    /* Info cards */
+    .info-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 24px; margin-bottom: 36px; }
+    .info-card { background: #fff; border-radius: 20px; padding: 28px 26px; box-shadow: 0 6px 18px rgba(74,55,40,.07); }
+    .info-card h3 { font-size: 1.05rem; font-weight: 600; color: #b85c3a; margin-bottom: 14px; display: flex; align-items: center; gap: 8px; }
+    .info-card ul { list-style: none; }
+    .info-card ul li { padding: 6px 0; font-size: 0.93rem; border-bottom: 1px dashed #f3d6c5; display: flex; align-items: flex-start; gap: 8px; }
+    .info-card ul li:last-child { border-bottom: none; }
+    .info-card ul li::before { content: "✦"; color: #e6a17a; font-size: 0.75rem; margin-top: 4px; flex-shrink: 0; }
+
+    /* Quote */
+    .quote-block { background: linear-gradient(135deg, #b85c3a 0%, #d9845e 100%); border-radius: 20px; padding: 36px 40px; text-align: center; margin-bottom: 36px; }
+    .quote-block blockquote { font-size: 1.2rem; font-style: italic; color: #fff; font-weight: 300; line-height: 1.7; }
+    .quote-block cite { display: block; margin-top: 14px; font-size: 0.9rem; color: rgba(255,255,255,.75); font-style: normal; }
+
+    /* Blog purpose */
+    .purpose-block { background: #fff; border-radius: 20px; padding: 32px 36px; box-shadow: 0 6px 18px rgba(74,55,40,.07); margin-bottom: 36px; }
+    .purpose-block h2 { font-size: 1.5rem; font-weight: 700; color: #b85c3a; margin-bottom: 18px; }
+    .purpose-block p { font-size: 0.97rem; margin-bottom: 12px; }
+    .purpose-block p:last-child { margin-bottom: 0; }
+
+    footer { margin-top: 20px; padding: 22px 0; text-align: center; border-top: 2px solid #e6a17a; font-size: 0.9rem; color: #4a3728; font-weight: 500; }
+    footer span { color: #b85c3a; }
+
+    @media (max-width: 700px) {
+      .hero { flex-direction: column; align-items: center; text-align: center; padding: 28px 20px; }
+      .hero-text h1 { font-size: 1.7rem; }
+      .avatar { width: 130px; height: 130px; font-size: 3.5rem; }
+      nav ul { gap: 12px; }
+      .quote-block { padding: 24px 20px; }
+      .purpose-block { padding: 24px 20px; }
+    }
+  </style>
+</head>
+<body>
+<div class="wrapper">
+  <header>
+    <a href="index.html" class="logo">🎉 От идеи до праздника</a>
+  </header>
+
+  <div class="page-layout">
+  <div>
+
+  <!-- Hero -->
+  <div class="hero">
+    <img src="ava.jpg" alt="Фото автора: Алексеева Анастасия Вячеславовна" class="avatar" onerror="this.classList.add('img-fallback'); this.removeAttribute('src');">
+    <div class="hero-text">
+      <h1>Алексеева Анастасия Вячеславовна</h1>
+      <div class="subtitle">Автор блога · Студент курса ИКТ · Организатор праздников</div>
+      <p>Привет! Меня зовут Анастасия, и я верю, что каждый праздник — это маленький фильм. У него есть сценарий, герои, кульминация и финальные титры. Разница только в том, что вместо камеры — живые эмоции, вместо монтажа — тщательное планирование.</p>
+      <p>Этот блог — мой учебный проект в рамках курса «Информационно-коммуникационные технологии». Здесь я собрала всё, что узнала об организации мероприятий: от выбора концепции до финального отчёта. Надеюсь, мой опыт поможет тебе сделать следующий праздник незабываемым.</p>
+    </div>
+  </div>
+
+  <!-- Info cards -->
+  <div class="info-grid">
+    <div class="info-card">
+      <h3>🎓 Учёба</h3>
+      <ul>
+        <li>Курс «Информационно-коммуникационные технологии»</li>
+        <li>Изучаю веб-технологии, цифровые инструменты и медиаграмотность</li>
+        <li>Создание учебного блога как итоговый проект семестра</li>
+      </ul>
+    </div>
+    <div class="info-card">
+      <h3>✨ Интересы</h3>
+      <ul>
+        <li>Организация праздников любого формата и масштаба</li>
+        <li>Декор и оформление пространства</li>
+        <li>Создание сценариев и программ мероприятий</li>
+        <li>Фотография и видеосъёмка событий</li>
+      </ul>
+    </div>
+    <div class="info-card">
+      <h3>🏆 Что умею</h3>
+      <ul>
+        <li>Планировать бюджет и тайминг мероприятия</li>
+        <li>Работать с подрядчиками и командой</li>
+        <li>Создавать обучающие материалы и комиксы</li>
+        <li>Разрабатывать структуру учебных блогов</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Quote -->
+  <div class="quote-block">
+    <blockquote>«Праздник — это не дата в календаре. Это момент, когда ты решаешь сделать жизнь ярче. Именно здесь начинается работа организатора.»</blockquote>
+    <cite>— Анастасия Алексеева</cite>
+  </div>
+
+  <!-- Purpose -->
+  <div class="purpose-block">
+    <h2>📌 О блоге «От идеи до праздника»</h2>
+    <p>Этот блог создан в рамках лабораторного курса ИКТ и посвящён теме организации и планирования мероприятий. Всё содержимое — от теоретических рубрик до практических инструкций — написано на основе изученного материала и личного интереса к теме.</p>
+    <p>В блоге вы найдёте три теоретических раздела: концепция и планирование, команда и ресурсы, сценарий и проведение. В практическом разделе — пошаговая инструкция по организации праздника «с нуля». В разделе «Медиа» — обучающий комикс и мультфильм «Приключения организатора», созданные специально для этого проекта.</p>
+    <p>Блог является учебным портфолио и отражает все выполненные лабораторные работы курса ИКТ по единой теме.</p>
+  </div>
+
+  </div><!-- /content -->
+
+  <aside class="sidebar">
+    <div class="nav-title">📂 Разделы блога</div>
+    <ul>
+      <li><a href="index.html">🏠 Главная</a></li>
+      <li><a href="theory.html">📖 Теория</a></li>
+      <li><a href="practice.html">🔧 Практика</a></li>
+      <li><a href="media.html">🎬 Медиа</a></li>
+      <li><a href="labs.html">📚 Лабораторные работы</a></li>
+      <li><a href="about.html" class="active">🧑‍🎤 Об авторе</a></li>
+    </ul>
+  </aside>
+
+  </div><!-- /page-layout -->
+
+  <footer>© 2026 <span>«От идеи до праздника»</span> · Алексеева Анастасия Вячеславовна</footer>
+</div>
+</body>
+</html>

@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Лабораторная работа №2 | Проект блога «От идеи до праздника»</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: linear-gradient(135deg, #fef6f0 0%, #fce4da 100%);
+            color: #4a3728;
+            line-height: 1.6;
+            padding: 30px 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.85);
+            padding: 40px 35px;
+            border-radius: 30px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+        }
+
+        h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #b85c3a;
+            text-align: center;
+            margin-bottom: 6px;
+        }
+
+        h1 span {
+            display: block;
+            font-size: 1rem;
+            font-weight: 400;
+            color: #9c7a6b;
+            margin-top: 6px;
+        }
+
+        h2 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: #9f5f3e;
+            margin: 40px 0 8px;
+            padding-bottom: 8px;
+            border-bottom: 3px solid #f3c9b0;
+            position: relative;
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: -3px;
+            left: 0;
+            width: 70px;
+            height: 3px;
+            background: #e6a17a;
+        }
+
+        .subtitle {
+            font-size: 0.95rem;
+            color: #7f5d4c;
+            margin-bottom: 24px;
+        }
+
+        /* === Таблица === */
+        .project-table {
+            width: 100%;
+            border-collapse: collapse;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+            margin: 16px 0 36px;
+            font-size: 0.95rem;
+        }
+
+        .project-table thead {
+            background: #e6a17a;
+            color: #fff;
+        }
+
+        .project-table th {
+            padding: 14px 20px;
+            font-weight: 600;
+            text-align: left;
+            font-size: 1rem;
+        }
+
+        .project-table td {
+            padding: 14px 20px;
+            background: #fffdfb;
+            border-bottom: 1px solid #f5e0d4;
+            vertical-align: top;
+        }
+
+        .project-table tbody tr:nth-child(even) td {
+            background: #fbefe8;
+        }
+
+        .project-table tbody tr:hover td {
+            background: #f7e1d4;
+            transition: background 0.2s;
+        }
+
+        .project-table tbody tr:last-child td {
+            border-bottom: none;
+        }
+
+        .q-col {
+            font-weight: 600;
+            color: #7f4d32;
+            width: 28%;
+            background: #faeade !important;
+        }
+
+        /* === Схема === */
+        .schema {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0;
+            margin: 20px 0;
+        }
+
+        .schema-level {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 14px;
+            width: 100%;
+        }
+
+        .schema-arrow {
+            text-align: center;
+            font-size: 1.8rem;
+            color: #d9a787;
+            line-height: 1;
+            padding: 6px 0;
+        }
+
+        .schema-card {
+            background: #fffbf9;
+            border: 2px solid #f3c9b0;
+            border-radius: 18px;
+            padding: 14px 20px;
+            min-width: 140px;
+            max-width: 240px;
+            text-align: center;
+            font-weight: 500;
+            color: #5a3c2c;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.04);
+            transition: transform 0.2s, box-shadow 0.2s;
+            flex: 0 1 auto;
+        }
+
+        .schema-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 18px rgba(230,130,70,0.12);
+        }
+
+        .schema-card.main-card {
+            background: #fce4d6;
+            border-color: #dba882;
+            font-weight: 700;
+            font-size: 1.05rem;
+            padding: 18px 30px;
+            min-width: 220px;
+        }
+
+        .schema-card.sub-card {
+            background: #fdf3ec;
+            border-color: #eecbb8;
+        }
+
+        .schema-card.child-card {
+            background: #fef8f4;
+            border-color: #f2d8c9;
+            font-size: 0.88rem;
+            padding: 10px 16px;
+            min-width: 110px;
+        }
+
+        .badge {
+            display: inline-block;
+            background: #e6a17a;
+            color: #fff;
+            font-size: 0.68rem;
+            font-weight: 700;
+            padding: 2px 10px;
+            border-radius: 30px;
+            margin-bottom: 6px;
+            letter-spacing: 0.3px;
+        }
+
+        .card-sub {
+            font-weight: 400;
+            font-size: 0.83rem;
+            color: #8f6e5c;
+            margin-top: 4px;
+            line-height: 1.5;
+        }
+
+        .schema-note {
+            margin-top: 14px;
+            font-size: 0.83rem;
+            text-align: center;
+            color: #a07b68;
+            font-style: italic;
+        }
+
+        .footer-note {
+            margin-top: 36px;
+            font-size: 0.83rem;
+            text-align: center;
+            color: #8c6b5a;
+            border-top: 1px solid #f3d6c5;
+            padding-top: 18px;
+        }
+
+        @media (max-width: 700px) {
+            .container { padding: 20px 14px; }
+            h1 { font-size: 1.5rem; }
+            .project-table { font-size: 0.85rem; }
+            .project-table th, .project-table td { padding: 10px 12px; }
+            .schema-card { min-width: 100px; font-size: 0.85rem; padding: 10px 12px; }
+            .schema-card.main-card { min-width: 160px; padding: 14px 18px; }
+        }
+
+        @media print {
+            body { background: white !important; padding: 0.4in; }
+            .container { background: white !important; box-shadow: none; border-radius: 0; padding: 0; }
+            .project-table { box-shadow: none; border: 1px solid #aaa; }
+            .project-table thead { background: #ddd !important; color: #000 !important; }
+            .project-table td { background: white !important; border-color: #aaa !important; }
+            .project-table tbody tr:nth-child(even) td { background: #f5f5f5 !important; }
+            .q-col { background: #eee !important; }
+            .schema-card { background: white !important; border-color: #999 !important; box-shadow: none !important; }
+            .schema-card.main-card { background: #eee !important; }
+            .badge { background: #999 !important; }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+
+    <h1>
+        Лабораторная работа №2
+        <span>Проект блога «От идеи до праздника»</span>
+    </h1>
+
+    <!-- ===== ТАБЛИЦА ===== -->
+    <h2>Таблица проектирования блога</h2>
+    <p class="subtitle">Обоснование ключевых решений при создании обучающего блога</p>
+
+    <table class="project-table">
+        <thead>
+            <tr>
+                <th>Вопрос</th>
+                <th>Ответ</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="q-col">Цели и задачи создания блога</td>
+                <td><strong>Цель:</strong> создать информационно-образовательный ресурс для начинающих организаторов мероприятий.<br><strong>Задачи:</strong> предоставить теоретические материалы по этапам организации (планирование, бюджет, площадка, сценарий); предложить пошаговые практические инструкции; визуализировать процессы с помощью комиксов и мультфильмов; служить портфолио автора с выполненными лабораторными работами курса ИКТ.</td>
+            </tr>
+            <tr>
+                <td class="q-col">Возраст читателей блога</td>
+                <td>16–25 лет — студенты колледжей и вузов, начинающие ивент-менеджеры. Дополнительно — преподаватели, просматривающие практические примеры организации мероприятий.</td>
+            </tr>
+            <tr>
+                <td class="q-col">Критерии успешности</td>
+                <td><strong>Качественные:</strong> полнота раскрытия темы, понятность материалов, удобная навигация.<br><strong>Количественные:</strong> не менее 100 уникальных просмотров за семестр, положительные отзывы от одногруппников и преподавателя, выполнение всех требований лабораторных работ.</td>
+            </tr>
+            <tr>
+                <td class="q-col">Аудитория и цели посещения</td>
+                <td>Студенты, увлечённые event-сферой; начинающие организаторы; «самоучки». Приходят за: пошаговыми руководствами, шаблонами документов (сметы, чек-листы), идеями и вдохновением, а также для просмотра лабораторных работ курса ИКТ.</td>
+            </tr>
+            <tr>
+                <td class="q-col">Основные функции и сервисы</td>
+                <td>Статьи по теоретическим рубрикам; горизонтальное и вертикальное меню; встроенные видеоплееры (мультфильм, видеовизитка); обучающий комикс; архив лабораторных работ курса; страница «Об авторе».</td>
+            </tr>
+            <tr>
+                <td class="q-col">Продвижение и количество участников</td>
+                <td><strong>Продвижение:</strong> публикация ссылки в учебных чатах группы, упоминание на занятиях, обмен ссылками с одногруппниками.<br>Предполагаемое число читателей: 50–150 за семестр. <strong>Авторов:</strong> 1 (студент).</td>
+            </tr>
+            <tr>
+                <td class="q-col">Жизненный цикл и развитие</td>
+                <td>Создание и наполнение — в течение одного семестра (~4 месяца). После сдачи — архив или личное портфолио. Потенциальное развитие: добавление гостевых статей практикующих организаторов, шаблонов документов, интеграция с социальными сетями (VK, Telegram).</td>
+            </tr>
+            <tr>
+                <td class="q-col">Блоги-образцы</td>
+                <td><strong>По дизайну:</strong> минималистичные блоги с крупной типографикой и тёплой цветовой гаммой.<br><strong>По функционалу:</strong> учебные блоги студентов на Blogger (sportyourdrive.blogspot.com, artofstealthandespionage.blogspot.com).<br><strong>По наполнению:</strong> сайты-инструкции по организации праздников (event.ru, статьи на vc.ru).</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- ===== СХЕМА ===== -->
+    <h2>Схема структуры блога</h2>
+    <p class="subtitle">Иерархия страниц и разделов блога «От идеи до праздника»</p>
+
+    <div class="schema">
+        <!-- Уровень 1: Главная -->
+        <div class="schema-level">
+            <div class="schema-card main-card">
+                <span class="badge">Главная страница</span><br>
+                Шапка · Горизонтальное меню<br>
+                <span class="card-sub">Приветственный блок · Анонсы материалов · Подвал</span>
+            </div>
+        </div>
+
+        <div class="schema-arrow">↓</div>
+
+        <!-- Уровень 2: основные разделы -->
+        <div class="schema-level">
+            <div class="schema-card sub-card">
+                <span class="badge">Теория</span><br>
+                Теоретические рубрики
+                <div class="card-sub">Планирование и концепция<br>Ресурсы и команда<br>Сценарий и проведение</div>
+            </div>
+            <div class="schema-card sub-card">
+                <span class="badge">Практика</span><br>
+                Пошаговая инструкция
+                <div class="card-sub">«Организуй праздник<br>за 5 шагов»</div>
+            </div>
+            <div class="schema-card sub-card">
+                <span class="badge">Медиа</span><br>
+                Мультимедиа-контент
+                <div class="card-sub">Обучающий комикс<br>Обучающий мультфильм<br>Видеовизитка</div>
+            </div>
+            <div class="schema-card sub-card">
+                <span class="badge">Портфолио</span><br>
+                Учебные материалы
+                <div class="card-sub">Лабораторные работы ИКТ<br>Об авторе</div>
+            </div>
+        </div>
+
+        <div class="schema-arrow">↓</div>
+
+        <!-- Уровень 3: детали -->
+        <div class="schema-level">
+            <div class="schema-card child-card">
+                <span class="badge">Рубрика 1</span><br>
+                Концепция → бюджет → площадка
+            </div>
+            <div class="schema-card child-card">
+                <span class="badge">Рубрика 2</span><br>
+                Роли, подрядчики, тайминг
+            </div>
+            <div class="schema-card child-card">
+                <span class="badge">Рубрика 3</span><br>
+                Структура, ведущий, финал
+            </div>
+            <div class="schema-card child-card">
+                <span class="badge">Шаги 1–5</span><br>
+                Идея → реализация → отчёт
+            </div>
+            <div class="schema-card child-card">
+                <span class="badge">Комикс</span><br>
+                PDF · 6 страниц
+            </div>
+            <div class="schema-card child-card">
+                <span class="badge">Мультфильм</span><br>
+                «Приключения организатора»
+            </div>
+        </div>
+
+        <p class="schema-note">← Все разделы доступны из вертикального и горизонтального меню →</p>
+    </div>
+
+    <p class="footer-note">
+        Лабораторная работа выполнена в рамках курса «Информационно-коммуникационные технологии»<br>
+        Блог «От идеи до праздника» · 2026
+    </p>
+
+</div>
+</body>
+</html>

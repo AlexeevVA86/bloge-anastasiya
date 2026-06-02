@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Лабораторные работы — От идеи до праздника</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Montserrat', sans-serif; background: #fef6f0; color: #4a3728; line-height: 1.6; padding: 0 20px; }
+    .wrapper { max-width: 1100px; margin: 0 auto; padding: 20px 0 60px; }
+    header { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; padding: 20px 0; border-bottom: 2px solid #e6a17a; margin-bottom: 40px; gap: 16px; }
+    .logo { font-size: 1.8rem; font-weight: 700; color: #b85c3a; text-decoration: none; display: flex; align-items: center; gap: 10px; }
+
+    .page-layout { display: grid; grid-template-columns: 1fr 260px; gap: 36px; align-items: start; }
+    .sidebar { background: #fff; border-radius: 20px; box-shadow: 0 8px 24px rgba(74,55,40,.08); padding: 26px 22px; position: sticky; top: 20px; }
+    .sidebar .nav-title { font-weight: 700; font-size: 1.05rem; color: #b85c3a; border-left: 4px solid #e6a17a; padding-left: 12px; margin-bottom: 14px; }
+    .sidebar ul { list-style: none; }
+    .sidebar ul li { margin-bottom: 4px; }
+    .sidebar ul li a { display: flex; align-items: center; gap: 8px; text-decoration: none; color: #4a3728; padding: 9px 13px; border-radius: 12px; font-weight: 500; font-size: 0.93rem; transition: all 0.2s; }
+    .sidebar ul li a:hover { background: #e6a17a; color: #fff; padding-left: 18px; }
+    .sidebar ul li a.active { background: #b85c3a; color: #fff; font-weight: 600; }
+    @media (max-width: 800px) { .page-layout { grid-template-columns: 1fr; } .sidebar { position: static; } }
+
+    /* Page title */
+    .page-title { text-align: center; margin-bottom: 44px; }
+    .page-title h1 { font-size: 2.4rem; font-weight: 700; color: #b85c3a; margin-bottom: 8px; }
+    .page-title p { font-size: 1.05rem; color: #7f5d4c; max-width: 600px; margin: 0 auto; }
+
+    /* Labs list */
+    .labs-list { display: flex; flex-direction: column; gap: 18px; }
+    .lab-card {
+      display: flex; align-items: center; gap: 22px;
+      background: #fff; border-radius: 20px; padding: 24px 28px;
+      box-shadow: 0 8px 24px rgba(74,55,40,.07);
+      text-decoration: none; color: #4a3728;
+      transition: transform .25s, box-shadow .25s;
+    }
+    .lab-card:hover { transform: translateY(-5px); box-shadow: 0 16px 36px rgba(184,92,58,.16); }
+    .lab-icon {
+      flex-shrink: 0; width: 56px; height: 56px; border-radius: 16px;
+      background: linear-gradient(135deg, #e6a17a, #b85c3a);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.7rem; box-shadow: 0 4px 14px rgba(184,92,58,.3);
+    }
+    .lab-body { flex: 1; display: flex; flex-direction: column; gap: 4px; }
+    .lab-title { font-size: 1.15rem; font-weight: 700; color: #b85c3a; }
+    .lab-meta { font-size: 0.88rem; color: #7f5d4c; }
+    .lab-arrow { flex-shrink: 0; font-size: 1.5rem; font-weight: 700; color: #e6a17a; transition: transform .25s, color .25s; }
+    .lab-card:hover .lab-arrow { transform: translateX(6px); color: #b85c3a; }
+
+    footer { margin-top: 50px; padding: 22px 0; text-align: center; border-top: 2px solid #e6a17a; font-size: 0.9rem; color: #4a3728; font-weight: 500; }
+    footer span { color: #b85c3a; }
+
+    @media (max-width: 700px) {
+      .lab-card { flex-direction: column; align-items: flex-start; gap: 14px; padding: 20px; }
+      .lab-arrow { align-self: flex-end; margin-top: -34px; }
+      .page-title h1 { font-size: 1.7rem; }
+    }
+  </style>
+</head>
+<body>
+<div class="wrapper">
+  <header>
+    <a href="index.html" class="logo">🎉 От идеи до праздника</a>
+  </header>
+
+  <div class="page-layout">
+  <div>
+
+  <div class="page-title">
+    <h1>📚 Лабораторные работы</h1>
+    <p>Отчётные материалы курса ИКТ по теме «Организация мероприятий»</p>
+  </div>
+
+  <div class="labs-list">
+
+    <!-- ЛР №2 — Отчёт по ИКТ (PDF) -->
+    <a class="lab-card" href="lab2-report.pdf" target="_blank" rel="noopener">
+      <span class="lab-icon">📄</span>
+      <span class="lab-body">
+        <span class="lab-title">ЛР №2 — Отчёт по ИКТ</span>
+        <span class="lab-meta">PDF · проектирование блога</span>
+      </span>
+      <span class="lab-arrow">→</span>
+    </a>
+
+    <!-- ЛР №3 — Создание одностраничного блога (PDF) -->
+    <a class="lab-card" href="lab3-blog.pdf" target="_blank" rel="noopener">
+      <span class="lab-icon">📄</span>
+      <span class="lab-body">
+        <span class="lab-title">ЛР №3 — Создание одностраничного блога</span>
+        <span class="lab-meta">PDF · вёрстка и публикация</span>
+      </span>
+      <span class="lab-arrow">→</span>
+    </a>
+
+    <!-- ЛР №11 — Презентация блога (PDF, двойной пробел в имени файла) -->
+    <a class="lab-card" href="lab11-presentation.pdf" target="_blank" rel="noopener">
+      <span class="lab-icon">📄</span>
+      <span class="lab-body">
+        <span class="lab-title">ЛР №11 — Презентация блога</span>
+        <span class="lab-meta">PDF · защита проекта</span>
+      </span>
+      <span class="lab-arrow">→</span>
+    </a>
+
+    <!-- ЛР №2 — Проект блога (внутренняя страница, та же вкладка) -->
+    <a class="lab-card" href="project-lab2.html">
+      <span class="lab-icon">📋</span>
+      <span class="lab-body">
+        <span class="lab-title">ЛР №2 — Проект блога (таблица и схема)</span>
+        <span class="lab-meta">Страница проекта · структура и навигация</span>
+      </span>
+      <span class="lab-arrow">→</span>
+    </a>
+
+  </div>
+
+  </div><!-- /content -->
+
+  <aside class="sidebar">
+    <div class="nav-title">📂 Разделы блога</div>
+    <ul>
+      <li><a href="index.html">🏠 Главная</a></li>
+      <li><a href="theory.html">📖 Теория</a></li>
+      <li><a href="practice.html">🔧 Практика</a></li>
+      <li><a href="media.html">🎬 Медиа</a></li>
+      <li><a href="labs.html" class="active">📚 Лабораторные работы</a></li>
+      <li><a href="about.html">🧑‍🎤 Об авторе</a></li>
+    </ul>
+  </aside>
+
+  </div><!-- /page-layout -->
+
+  <footer>© 2026 <span>«От идеи до праздника»</span> · Алексеева Анастасия Вячеславовна</footer>
+</div>
+</body>
+</html>

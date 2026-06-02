@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Медиа — От идеи до праздника</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Montserrat', sans-serif; background: #fef6f0; color: #4a3728; line-height: 1.6; padding: 0 20px; }
+    .wrapper { max-width: 1100px; margin: 0 auto; padding: 20px 0 60px; }
+    header { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; padding: 20px 0; border-bottom: 2px solid #e6a17a; margin-bottom: 40px; gap: 16px; }
+    .logo { font-size: 1.8rem; font-weight: 700; color: #b85c3a; text-decoration: none; display: flex; align-items: center; gap: 10px; }
+    nav ul { display: flex; list-style: none; gap: 22px; flex-wrap: wrap; }
+    nav ul li a { text-decoration: none; color: #4a3728; font-weight: 500; font-size: 0.95rem; transition: color .3s; border-bottom: 2px solid transparent; padding-bottom: 3px; }
+    nav ul li a:hover { color: #b85c3a; }
+    nav ul li a.active { color: #b85c3a; border-bottom-color: #b85c3a; font-weight: 600; }
+
+    .page-layout { display: grid; grid-template-columns: 1fr 260px; gap: 36px; align-items: start; }
+    .sidebar { background: #fff; border-radius: 20px; box-shadow: 0 8px 24px rgba(74,55,40,.08); padding: 26px 22px; position: sticky; top: 20px; }
+    .sidebar .nav-title { font-weight: 700; font-size: 1.05rem; color: #b85c3a; border-left: 4px solid #e6a17a; padding-left: 12px; margin-bottom: 14px; }
+    .sidebar ul { list-style: none; }
+    .sidebar ul li { margin-bottom: 4px; }
+    .sidebar ul li a { display: flex; align-items: center; gap: 8px; text-decoration: none; color: #4a3728; padding: 9px 13px; border-radius: 12px; font-weight: 500; font-size: 0.93rem; transition: all 0.2s; }
+    .sidebar ul li a:hover { background: #e6a17a; color: #fff; padding-left: 18px; }
+    .sidebar ul li a.active { background: #b85c3a; color: #fff; font-weight: 600; }
+    @media (max-width: 800px) { .page-layout { grid-template-columns: 1fr; } .sidebar { position: static; } }
+
+    .page-title { text-align: center; margin-bottom: 44px; }
+    .page-title h1 { font-size: 2.4rem; font-weight: 700; color: #b85c3a; margin-bottom: 8px; }
+    .page-title p { font-size: 1.05rem; color: #7f5d4c; max-width: 580px; margin: 0 auto; }
+
+    /* Media cards */
+    .media-section { background: #fff; border-radius: 24px; padding: 40px 44px; box-shadow: 0 10px 28px rgba(74,55,40,.08); margin-bottom: 32px; }
+    .media-section:hover { box-shadow: 0 14px 38px rgba(184,92,58,.12); transition: box-shadow .3s; }
+    .section-header { display: flex; align-items: center; gap: 16px; margin-bottom: 24px; }
+    .section-header .icon { font-size: 2.8rem; flex-shrink: 0; }
+    .section-header h2 { font-size: 1.8rem; font-weight: 700; color: #b85c3a; }
+    .section-header p { font-size: 0.95rem; color: #7f5d4c; margin-top: 4px; }
+    .media-description { font-size: 0.97rem; margin-bottom: 28px; color: #4a3728; }
+
+    /* Comic slider */
+    .comic-slider { user-select: none; }
+    .slider-frame {
+      border-radius: 14px; overflow: hidden;
+      box-shadow: 0 6px 20px rgba(74,55,40,.12);
+      background: #f5ede5; margin-bottom: 16px;
+      transition: opacity .25s ease;
+    }
+    .slider-frame iframe { display: block; border: none; width: 100%; height: 520px; }
+    .slider-controls {
+      display: flex; align-items: center; justify-content: center; gap: 24px; margin-bottom: 20px;
+    }
+    .slider-btn {
+      width: 48px; height: 48px; border-radius: 50%; border: none; cursor: pointer;
+      background: #e6a17a; color: #fff; font-size: 1.3rem; font-weight: 700;
+      box-shadow: 0 4px 12px rgba(184,92,58,.3); transition: background .2s, transform .15s;
+      display: flex; align-items: center; justify-content: center; line-height: 1;
+    }
+    .slider-btn:hover { background: #b85c3a; transform: scale(1.08); }
+    .slider-btn:disabled { background: #d9c4b8; box-shadow: none; cursor: default; transform: none; }
+    .slider-counter { font-size: 1rem; font-weight: 600; color: #b85c3a; min-width: 70px; text-align: center; }
+    .slider-dots { display: flex; gap: 8px; justify-content: center; margin-bottom: 6px; }
+    .slider-dot {
+      width: 10px; height: 10px; border-radius: 50%;
+      background: #e6c4ae; border: none; cursor: pointer; padding: 0; transition: background .2s, transform .15s;
+    }
+    .slider-dot.active { background: #b85c3a; transform: scale(1.3); }
+
+    /* Video block */
+    .video-wrapper {
+      background: #1a0a00;
+      border-radius: 18px; overflow: hidden; margin-bottom: 24px;
+      box-shadow: 0 8px 24px rgba(0,0,0,.25);
+      position: relative; padding-top: 56.25%; /* 16:9 */
+    }
+    .video-placeholder {
+      aspect-ratio: 16/9; display: flex; flex-direction: column;
+      align-items: center; justify-content: center; gap: 12px;
+      color: rgba(255,255,255,.85);
+    }
+    .video-placeholder .play-btn {
+      width: 72px; height: 72px; border-radius: 50%;
+      background: rgba(230,161,122,.9); display: flex; align-items: center; justify-content: center;
+      font-size: 1.8rem; cursor: pointer; transition: transform .2s, background .2s;
+      box-shadow: 0 4px 16px rgba(230,161,122,.5);
+    }
+    .video-placeholder .play-btn:hover { transform: scale(1.12); background: #e6a17a; }
+    .video-placeholder p { font-size: 1.1rem; font-weight: 600; }
+    .video-placeholder span { font-size: 0.85rem; opacity: .7; }
+    .video-note { background: #fef6f0; border-radius: 12px; padding: 14px 18px; font-size: 0.88rem; color: #7f5d4c; display: flex; align-items: flex-start; gap: 10px; }
+    .video-note::before { content: "ℹ️"; font-size: 1rem; flex-shrink: 0; }
+
+    /* Vizitka — адаптивный контейнер 16:9 */
+    .vizitka-wrapper { position: relative; padding-top: 56.25%; background: linear-gradient(135deg, #fde8d8, #fdf3ec); border-radius: 18px; overflow: hidden; box-shadow: 0 8px 24px rgba(74,55,40,.12); }
+    .vizitka-placeholder { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; text-align: center; padding: 20px; color: #7f5d4c; }
+    .vizitka-placeholder .vizitka-icon { font-size: 3.2rem; }
+    .vizitka-placeholder p { font-size: 1.1rem; font-weight: 600; color: #b85c3a; }
+    .vizitka-placeholder .vizitka-sub { font-size: 0.85rem; opacity: .75; }
+
+    footer { margin-top: 20px; padding: 22px 0; text-align: center; border-top: 2px solid #e6a17a; font-size: 0.9rem; color: #4a3728; font-weight: 500; }
+    footer span { color: #b85c3a; }
+
+    @media (max-width: 700px) {
+      .media-section { padding: 24px 18px; }
+      .section-header h2 { font-size: 1.4rem; }
+      .page-title h1 { font-size: 1.7rem; }
+    }
+  </style>
+</head>
+<body>
+<div class="wrapper">
+  <header>
+    <a href="index.html" class="logo">🎉 От идеи до праздника</a>
+  </header>
+
+  <div class="page-layout">
+  <div>
+
+  <div class="page-title">
+    <h1>🎬 Медиа</h1>
+    <p>Обучающий комикс, мультфильм и видеовизитка — всё самое интересное в одном разделе</p>
+  </div>
+
+  <!-- Комикс -->
+  <div class="media-section">
+    <div class="section-header">
+      <span class="icon">😄</span>
+      <div>
+        <h2>Обучающий комикс</h2>
+        <p>История об организаторе, который учится на своих ошибках</p>
+      </div>
+    </div>
+    <p class="media-description">
+      Комикс в шуточной форме рассказывает о типичных ситуациях, с которыми сталкивается начинающий организатор праздников: забытый торт, опоздавший DJ, запутавшийся тайминг — и о том, как из каждой ситуации выйти с улыбкой. 6 страниц, полных приключений.
+    </p>
+    <div class="comic-slider">
+      <div class="slider-frame">
+        <canvas id="comic-canvas" style="display:block; width:100%;"></canvas>
+      </div>
+      <div class="slider-dots" id="comic-dots"></div>
+      <div class="slider-controls">
+        <button class="slider-btn" id="comic-prev" onclick="comicNav(-1)" disabled>&#8592;</button>
+        <span class="slider-counter"><span id="comic-cur">1</span> / <span id="comic-total">6</span></span>
+        <button class="slider-btn" id="comic-next" onclick="comicNav(1)">&#8594;</button>
+      </div>
+    </div>
+    <div class="video-note">
+      Также можно открыть полный файл:
+      <a href="https://drive.google.com/file/d/1qC9WExR-5BekADD4NSvGtKBVn70dIDLs/view?usp=sharing"
+         target="_blank" rel="noopener"
+         style="color:#b85c3a; font-weight:600; margin-left:4px;">Открыть в Google Drive →</a>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+    <script>
+      pdfjsLib.GlobalWorkerOptions.workerSrc =
+        'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+
+      let pdfDoc = null, currentPage = 1, totalPages = 6, rendering = false;
+      const canvas = document.getElementById('comic-canvas');
+      const ctx = canvas.getContext('2d');
+
+      pdfjsLib.getDocument('comics.pdf').promise.then(function(pdf) {
+        pdfDoc = pdf;
+        totalPages = pdf.numPages;
+        document.getElementById('comic-total').textContent = totalPages;
+        buildDots();
+        renderPage(1);
+      }).catch(function() {
+        canvas.parentElement.innerHTML =
+          '<div style="padding:40px;text-align:center;color:#b85c3a;font-weight:600;">Комикс загружается только при открытии файла локально.<br>На сайте используйте кнопку ниже.</div>';
+        // --- ТОЧКА РАСШИРЕНИЯ: опциональный резервный (fallback) показ комикса ---
+        // Если pdf.js или «Комикс.pdf» недоступны (например, при открытии через file://
+        // или при недоступности CDN), здесь вместо текстовой заглушки можно вывести
+        // последовательность постраничных изображений из папки comic_pages, например:
+        //   canvas.parentElement.innerHTML =
+        //     '<img src="comic_pages/page-1.jpg" alt="Комикс, страница 1">' +
+        //     '<img src="comic_pages/page-2.jpg" alt="Комикс, страница 2">' +
+        //     … + '<img src="comic_pages/page-N.jpg" alt="Комикс, страница N">';
+        // Изображения и формат их именования (page-1.jpg … page-N.jpg) описаны
+        // в comic_pages/README.md. Сейчас папка пуста, поэтому резерв не активирован,
+        // и используется текстовая заглушка выше (основной механизм pdf.js не меняется).
+      });
+
+      function renderPage(num) {
+        if (rendering) return;
+        rendering = true;
+        pdfDoc.getPage(num).then(function(page) {
+          const w = canvas.parentElement.clientWidth || 800;
+          const unscaled = page.getViewport({ scale: 1 });
+          const scale = (w / unscaled.width) * window.devicePixelRatio;
+          const viewport = page.getViewport({ scale });
+          canvas.width = viewport.width;
+          canvas.height = viewport.height;
+          return page.render({ canvasContext: ctx, viewport }).promise;
+        }).then(function() {
+          rendering = false;
+          document.getElementById('comic-cur').textContent = num;
+          document.getElementById('comic-prev').disabled = num <= 1;
+          document.getElementById('comic-next').disabled = num >= totalPages;
+          document.querySelectorAll('.slider-dot')
+            .forEach(function(d, i) { d.classList.toggle('active', i === num - 1); });
+        });
+      }
+
+      function comicNav(dir) {
+        var next = currentPage + dir;
+        if (next < 1 || next > totalPages) return;
+        currentPage = next;
+        renderPage(currentPage);
+      }
+
+      function buildDots() {
+        var container = document.getElementById('comic-dots');
+        for (var i = 1; i <= totalPages; i++) {
+          var btn = document.createElement('button');
+          btn.className = 'slider-dot' + (i === 1 ? ' active' : '');
+          btn.setAttribute('data-page', i);
+          btn.onclick = (function(p) {
+            return function() { currentPage = p; renderPage(p); };
+          })(i);
+          container.appendChild(btn);
+        }
+      }
+    </script>
+  </div>
+
+  <!-- Мультфильм -->
+  <div class="media-section">
+    <div class="section-header">
+      <span class="icon">🎞️</span>
+      <div>
+        <h2>Обучающий мультфильм</h2>
+        <p>«Приключения организатора» — анимационная история о пути от идеи до праздника</p>
+      </div>
+    </div>
+    <p class="media-description">
+      Мультфильм «Приключения организатора» в весёлой форме показывает весь путь: как рождается идея праздника, как преодолеть трудности планирования и что происходит, когда всё идёт не по плану — но праздник всё равно удаётся.
+    </p>
+    <div class="video-wrapper">
+      <iframe
+        src="https://rutube.ru/play/embed/private/f3b822e02201819a3bd0b5448383fa7d/?p=s-5q1G0zF0VXjivXLQ_b3g"
+        width="100%" height="100%"
+        style="position:absolute; top:0; left:0; border:none;"
+        allow="clipboard-write; autoplay"
+        allowfullscreen
+        title="Приключения организатора">
+      </iframe>
+    </div>
+    <div class="video-note">
+      Если видео не воспроизводится, откройте напрямую:
+      <a href="https://rutube.ru/video/private/f3b822e02201819a3bd0b5448383fa7d/?p=s-5q1G0zF0VXjivXLQ_b3g"
+         target="_blank" rel="noopener"
+         style="color:#b85c3a; font-weight:600; margin-left:4px;">Смотреть на RuTube →</a>
+    </div>
+  </div>
+
+  <!-- Видеовизитка -->
+  <div class="media-section">
+    <div class="section-header">
+      <span class="icon">🎤</span>
+      <div>
+        <h2>Видеовизитка автора</h2>
+        <p>Краткое знакомство с автором блога в видеоформате</p>
+      </div>
+    </div>
+    <p class="media-description">
+      Видеовизитка — это короткое видео, в котором автор рассказывает о себе, о теме блога и о том, чему можно здесь научиться. Формат: 1–2 минуты, живая речь, личное обращение к читателям.
+    </p>
+    <div class="vizitka-wrapper">
+      <div class="vizitka-placeholder">
+        <span class="vizitka-icon">🎬</span>
+        <p>Видео готовится и будет добавлено позже</p>
+        <span class="vizitka-sub">Видеовизитка автора · скоро здесь появится плеер</span>
+      </div>
+      <!--
+        Когда появится видео, заглушку заменяет адаптивный плеер в том же контейнере 16:9:
+        <iframe src="…" allowfullscreen title="Видеовизитка"
+                style="position:absolute; top:0; left:0; width:100%; height:100%; border:none;"></iframe>
+        (или локальный <video src="organizer-adventures.mp4" controls
+                style="position:absolute; top:0; left:0; width:100%; height:100%;"></video>)
+      -->
+    </div>
+  </div>
+
+  </div><!-- /content -->
+
+  <aside class="sidebar">
+    <div class="nav-title">📂 Разделы блога</div>
+    <ul>
+      <li><a href="index.html">🏠 Главная</a></li>
+      <li><a href="theory.html">📖 Теория</a></li>
+      <li><a href="practice.html">🔧 Практика</a></li>
+      <li><a href="media.html" class="active">🎬 Медиа</a></li>
+      <li><a href="labs.html">📚 Лабораторные работы</a></li>
+      <li><a href="about.html">🧑‍🎤 Об авторе</a></li>
+    </ul>
+  </aside>
+
+  </div><!-- /page-layout -->
+
+  <footer>© 2026 <span>«От идеи до праздника»</span> · Алексеева Анастасия Вячеславовна</footer>
+</div>
+</body>
+</html>

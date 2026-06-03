@@ -26,33 +26,52 @@
     @media (max-width: 800px) { .page-layout { grid-template-columns: 1fr; } .sidebar { position: static; } }
 
     /* Заголовок страницы */
-    .page-title { text-align: center; margin-bottom: 28px; }
+    .page-title { text-align: center; margin-bottom: 24px; }
     .page-title h1 { font-size: 2.4rem; font-weight: 700; color: #b85c3a; margin-bottom: 8px; }
-    .page-title p { font-size: 1.05rem; color: #7f5d4c; max-width: 620px; margin: 0 auto; }
+    .page-title p { font-size: 1.05rem; color: #7f5d4c; max-width: 640px; margin: 0 auto; }
 
-    /* Счётчик прохождений */
-    .quiz-meta { display: flex; justify-content: center; margin-bottom: 28px; }
-    .quiz-counter {
+    /* Мета: счётчики */
+    .quiz-meta { display: flex; justify-content: center; gap: 14px; flex-wrap: wrap; margin-bottom: 28px; }
+    .quiz-chip {
       background: linear-gradient(135deg, #fde8d8, #fdf3ec);
       border: 1px solid #f3c9b0; border-radius: 30px;
-      padding: 10px 22px; font-size: 0.95rem; font-weight: 500; color: #7f4d32;
+      padding: 9px 20px; font-size: 0.92rem; font-weight: 500; color: #7f4d32;
     }
-    .quiz-counter strong { color: #b85c3a; font-weight: 700; }
+    .quiz-chip strong { color: #b85c3a; font-weight: 700; }
 
-    /* Вопросы */
+    /* Карточка вопроса */
     .quiz-question { background: #fff; border-radius: 20px; box-shadow: 0 8px 24px rgba(74,55,40,.07); padding: 26px 30px; margin-bottom: 20px; }
-    .quiz-question .q-head { display: flex; align-items: flex-start; gap: 14px; margin-bottom: 16px; }
+    .q-head { display: flex; align-items: flex-start; gap: 14px; margin-bottom: 14px; }
     .q-num { flex-shrink: 0; width: 38px; height: 38px; border-radius: 50%; background: linear-gradient(135deg, #e6a17a, #b85c3a); color: #fff; font-weight: 700; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 12px rgba(184,92,58,.3); }
     .q-text { font-size: 1.08rem; font-weight: 600; color: #4a3728; padding-top: 6px; }
+    .q-tag { display: inline-block; font-size: 0.72rem; font-weight: 700; letter-spacing: .3px; color: #fff; background: #e6a17a; border-radius: 20px; padding: 2px 10px; margin-left: 8px; vertical-align: middle; white-space: nowrap; }
+
+    /* Картинка-иконка вопроса */
+    .q-image { display: flex; justify-content: center; margin: 4px 0 18px; }
+    .q-image .emoji-card { width: 120px; height: 120px; border-radius: 24px; background: linear-gradient(135deg, #fde8d8, #fdf3ec); border: 2px solid #f3c9b0; display: flex; align-items: center; justify-content: center; font-size: 4rem; box-shadow: 0 6px 18px rgba(184,92,58,.12); }
+
+    /* Варианты (single / multiple) */
     .options { display: flex; flex-direction: column; gap: 10px; padding-left: 52px; }
     .option { display: flex; align-items: flex-start; gap: 12px; padding: 12px 16px; background: #fef6f0; border: 2px solid transparent; border-radius: 12px; cursor: pointer; transition: all 0.2s; font-size: 0.96rem; }
     .option:hover { background: #fdeee2; }
     .option input { margin-top: 4px; accent-color: #b85c3a; cursor: pointer; flex-shrink: 0; }
+    .option .opt-text { flex: 1; }
     .option.correct { background: #e7f5ec; border-color: #4caf7d; }
     .option.wrong { background: #fdeaea; border-color: #e07a7a; }
-    .option .mark { margin-left: auto; font-weight: 700; flex-shrink: 0; }
+    .option .mark { font-weight: 700; flex-shrink: 0; }
     .option.correct .mark { color: #2e7d50; }
     .option.wrong .mark { color: #c0392b; }
+
+    /* Сопоставление */
+    .match-list { display: flex; flex-direction: column; gap: 12px; padding-left: 52px; }
+    .match-row { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; background: #fef6f0; border: 2px solid transparent; border-radius: 12px; padding: 12px 16px; }
+    .match-left { flex: 1; min-width: 160px; font-weight: 600; font-size: 0.95rem; color: #5a3c2c; display: flex; align-items: center; gap: 8px; }
+    .match-arrow { color: #d9a787; font-weight: 700; }
+    .match-select { font-family: inherit; font-size: 0.92rem; padding: 8px 12px; border: 2px solid #e6c4ae; border-radius: 10px; background: #fff; color: #4a3728; cursor: pointer; flex: 1; min-width: 160px; }
+    .match-select:focus { outline: none; border-color: #b85c3a; }
+    .match-row.correct { background: #e7f5ec; border-color: #4caf7d; }
+    .match-row.wrong { background: #fdeaea; border-color: #e07a7a; }
+    .match-fix { width: 100%; font-size: 0.85rem; color: #2e7d50; padding-left: 2px; }
 
     /* Кнопки */
     .quiz-actions { display: flex; justify-content: center; gap: 16px; margin-top: 28px; flex-wrap: wrap; }
@@ -82,7 +101,7 @@
 
     @media (max-width: 700px) {
       .quiz-question { padding: 20px 18px; }
-      .options { padding-left: 0; }
+      .options, .match-list { padding-left: 0; }
       .page-title h1 { font-size: 1.7rem; }
     }
   </style>
@@ -98,11 +117,12 @@
 
     <div class="page-title">
       <h1>🧠 Тестирование</h1>
-      <p>Проверь, как ты усвоил материалы блога — 10 вопросов по теории и практике организации праздников</p>
+      <p>10 случайных вопросов из банка по материалам блога: одиночный и множественный выбор, сопоставление и вопросы с картинками</p>
     </div>
 
     <div class="quiz-meta">
-      <span class="quiz-counter">📊 Тест пройден раз: <strong id="attempts">0</strong></span>
+      <span class="quiz-chip">📊 Тест пройден раз: <strong id="attempts">0</strong></span>
+      <span class="quiz-chip">🏆 Лучший результат: <strong id="best">—</strong></span>
     </div>
 
     <form id="quiz-form" class="quiz"></form>
@@ -120,7 +140,7 @@
       <h2 id="result-title">Результат</h2>
       <p id="result-text"></p>
       <div class="result-actions">
-        <button type="button" id="retry-btn" class="btn btn-secondary">Пройти заново</button>
+        <button type="button" id="retry-btn" class="btn btn-secondary">Пройти заново (новые вопросы)</button>
       </div>
     </div>
 
@@ -145,214 +165,311 @@
 </div>
 
 <script>
-  // Вопросы теста по материалам блога (теория + практика)
-  var QUESTIONS = [
-    {
-      q: "Что такое концепция праздника?",
-      options: [
-        "Стержень, объединяющий все элементы события в единую историю",
-        "Список приглашённых гостей",
-        "Договор аренды площадки",
-        "Итоговый финансовый отчёт"
-      ],
-      correct: 0
-    },
-    {
-      q: "Какой метод помогает поставить конкретную и измеримую цель праздника?",
-      options: ["SWOT", "SMART", "ABC-анализ", "PEST"],
-      correct: 1
-    },
-    {
-      q: "По какому принципу рекомендуется распределять бюджет?",
-      options: [
-        "70 / 20 / 10",
-        "40 / 40 / 20",
-        "50 / 30 / 20 (площадка и еда / развлечения / прочее)",
-        "60 / 30 / 10"
-      ],
-      correct: 2
-    },
-    {
-      q: "У скольких подрядчиков стоит запрашивать сметы для сравнения?",
-      options: ["У одного", "У трёх-четырёх", "Ровно у десяти", "Это не важно"],
-      correct: 1
-    },
-    {
-      q: "Какой обычно размер предоплаты подрядчику?",
-      options: ["100% заранее", "5–10%", "30–50%", "90%"],
-      correct: 2
-    },
-    {
-      q: "Что обозначает Run-of-Show (ROS)?",
-      options: [
-        "Почасовое расписание мероприятия",
-        "Список подарков гостям",
-        "Меню банкета",
-        "Схема рассадки"
-      ],
-      correct: 0
-    },
-    {
-      q: "Какой запас времени закладывают в тайминг на непредвиденные задержки?",
-      options: ["15–20 минут", "Целые сутки", "Запас не нужен", "Ровно 1 минуту"],
-      correct: 0
-    },
-    {
-      q: "На сколько актов делится классическая структура праздника?",
-      options: [
-        "Один сплошной блок",
-        "Два акта",
-        "Три акта: встреча, кульминация, финал",
-        "Пять актов"
-      ],
-      correct: 2
-    },
-    {
-      q: "Что важно сделать после завершения праздника?",
-      options: [
-        "Сразу всё забыть",
-        "Составить финальный отчёт и собрать обратную связь",
-        "Удалить все фотографии",
-        "Ничего не делать"
-      ],
-      correct: 1
-    },
-    {
-      q: "Сколько шагов в практической инструкции «Организуй праздник»?",
-      options: ["3 шага", "5 шагов", "7 шагов", "10 шагов"],
-      correct: 1
-    }
+  /* ====== БАНК ВОПРОСОВ (30 шт.) ======
+     Типы:
+       single   — один правильный ответ (correct: индекс)
+       multiple — несколько правильных (correct: массив индексов)
+       match    — сопоставление (left[i] соответствует right[ correct[i] ])
+     image      — необязательное поле с эмодзи-иллюстрацией
+  */
+  var BANK = [
+    /* --- Одиночный выбор --- */
+    { type:"single", q:"Что такое концепция праздника?",
+      options:["Стержень, объединяющий все элементы события в единую историю","Список приглашённых гостей","Договор аренды площадки","Итоговый финансовый отчёт"], correct:0 },
+    { type:"single", q:"Какой метод помогает поставить конкретную и измеримую цель праздника?",
+      options:["SWOT","SMART","ABC-анализ","PEST"], correct:1 },
+    { type:"single", q:"По какому принципу рекомендуется распределять бюджет?",
+      options:["70 / 20 / 10","40 / 40 / 20","50 / 30 / 20 (площадка и еда / развлечения / прочее)","60 / 30 / 10"], correct:2 },
+    { type:"single", q:"У скольких подрядчиков стоит запрашивать сметы для сравнения?",
+      options:["У одного","У трёх-четырёх","Ровно у десяти","Это не важно"], correct:1 },
+    { type:"single", q:"Какой обычно размер предоплаты подрядчику?",
+      options:["100% заранее","5–10%","30–50%","90%"], correct:2 },
+    { type:"single", q:"Что обозначает Run-of-Show (ROS)?",
+      options:["Почасовое расписание мероприятия","Список подарков гостям","Меню банкета","Схема рассадки"], correct:0 },
+    { type:"single", q:"Какой запас времени закладывают в тайминг на непредвиденные задержки?",
+      options:["15–20 минут","Целые сутки","Запас не нужен","Ровно 1 минуту"], correct:0 },
+    { type:"single", q:"На сколько актов делится классическая структура праздника?",
+      options:["Один сплошной блок","Два акта","Три акта: встреча, кульминация, финал","Пять актов"], correct:2 },
+    { type:"single", q:"Что важно сделать после завершения праздника?",
+      options:["Сразу всё забыть","Составить финальный отчёт и собрать обратную связь","Удалить все фотографии","Ничего не делать"], correct:1 },
+    { type:"single", q:"Сколько шагов в практической инструкции «Организуй праздник»?",
+      options:["3 шага","5 шагов","7 шагов","10 шагов"], correct:1 },
+    { type:"single", q:"Какую долю бюджета съедают три главные статьи расходов (площадка, угощение, развлечения)?",
+      options:["до 30%","до 50%","до 80%","ровно 100%"], correct:2 },
+    { type:"single", q:"Какой резервный фонд рекомендуется заложить в бюджет?",
+      options:["10–15%","50%","0%","75%"], correct:0 },
+    { type:"single", q:"За сколько времени до начала организатору стоит прибыть на площадку?",
+      options:["За 10 минут","За 2 часа","За сутки","К началу мероприятия"], correct:1 },
+    { type:"single", q:"Сколько площадок рекомендуется лично осмотреть перед выбором?",
+      options:["Ни одной","2–3","Не меньше 20","Только одну"], correct:1 },
+    { type:"single", q:"Какая длительность у видеовизитки автора?",
+      options:["1–2 минуты","30 секунд","Полчаса","2 часа"], correct:0 },
+    { type:"single", q:"Кто в команде отвечает за тайминг и связь между подрядчиками?",
+      options:["Декоратор","Координатор","Фотограф","Гость"], correct:1 },
+    { type:"single", q:"Как называется учебный мультфильм в разделе «Медиа»?",
+      options:["«Праздник к нам приходит»","«Приключения организатора»","«Тайминг и я»","«Сметы навсегда»"], correct:1 },
+    { type:"single", q:"Сколько страниц в обучающем комиксе?",
+      options:["3","6","12","20"], correct:1 },
+
+    /* --- Множественный выбор --- */
+    { type:"multiple", q:"Какие роли входят в команду праздника? (выберите все верные)",
+      options:["Координатор","Декоратор","Техник по свету и звуку","Фотограф","Случайный прохожий"], correct:[0,1,2,3] },
+    { type:"multiple", q:"Что относится к топ-5 типичных форс-мажоров? (выберите все верные)",
+      options:["Опоздание артиста","Внезапная гроза на улице","Отключение света","Неисправный проектор","Хорошая погода"], correct:[0,1,2,3] },
+    { type:"multiple", q:"Что обязательно проверить при выборе площадки? (выберите все верные)",
+      options:["Вместимость","Техническое оснащение (свет, звук, розетки)","Цвет стен у соседей","Локацию и парковку"], correct:[0,1,3] },
+    { type:"multiple", q:"«Святая троица» проверки подрядчика — это… (выберите все верные)",
+      options:["Портфолио","Отзывы","Договор","Гороскоп"], correct:[0,1,2] },
+    { type:"multiple", q:"Какие разделы есть в блоге «От идеи до праздника»? (выберите все верные)",
+      options:["Теория","Практика","Медиа","Прогноз погоды"], correct:[0,1,2] },
+    { type:"multiple", q:"Что входит в финальный отчёт после праздника? (выберите все верные)",
+      options:["Сравнение факта с плановым бюджетом","Отзывы подрядчиков","Ошибки и находки","Список будущих покупок для дома"], correct:[0,1,2] },
+
+    /* --- Сопоставление --- */
+    { type:"match", q:"Сопоставьте этап организации и его содержание:",
+      left:["Концепция и планирование","Команда и ресурсы","Сценарий и проведение"],
+      right:["Структура, ведущий, финальный отчёт","Идея, цель, бюджет, площадка","Роли, подрядчики, тайминг"],
+      correct:[1,2,0] },
+    { type:"match", q:"Сопоставьте роль в команде и её зону ответственности:",
+      left:["Координатор","Декоратор","Техник","Фотограф"],
+      right:["Свет, звук, проектор","Тайминг и связь между подрядчиками","Ловит эмоции на снимках","Визуал и атмосфера"],
+      correct:[1,3,0,2] },
+    { type:"match", q:"Сопоставьте долю бюджета и статью расходов (принцип 50/30/20):",
+      left:["50%","30%","20%"],
+      right:["Развлечения","Прочее","Площадка и еда"],
+      correct:[2,0,1] },
+
+    /* --- Вопросы с картинками (эмодзи-иконки блога) --- */
+    { type:"single", image:"🎯", q:"Какой этап организации обозначает эта иконка в блоге?",
+      options:["Концепция и планирование","Финальный отчёт","Уборка после праздника","Рассадка гостей"], correct:0 },
+    { type:"single", image:"💰", q:"К какой теме относится эта иконка?",
+      options:["Выбор музыки","Бюджет мероприятия","Дресс-код","Погода"], correct:1 },
+    { type:"single", image:"👥", q:"Какому разделу теории соответствует эта иконка?",
+      options:["Команда и ресурсы","Меню банкета","Уборка","Фейерверк"], correct:0 },
+    { type:"match", image:"🗂️", q:"Сопоставьте иконку и раздел блога:",
+      left:["📖","🔧","🎬"],
+      right:["Медиа","Теория","Практика"],
+      correct:[1,2,0] }
   ];
 
-  var STORAGE_KEY = "quiz_attempts_otidei";
+  var NUM = 10;                     // вопросов в одном прохождении
+  var KEY_ATTEMPTS = "quiz_attempts_otidei";
+  var KEY_BEST = "quiz_best_otidei";
+
   var form = document.getElementById("quiz-form");
   var checkBtn = document.getElementById("check-btn");
   var retryBtn = document.getElementById("retry-btn");
   var resultBox = document.getElementById("result");
   var attemptsEl = document.getElementById("attempts");
+  var bestEl = document.getElementById("best");
+  var current = [];      // выбранные на это прохождение вопросы
   var checked = false;
 
-  // Счётчик прохождений из localStorage
-  function loadAttempts() {
-    var n = 0;
-    try { n = parseInt(localStorage.getItem(STORAGE_KEY), 10) || 0; } catch (e) { n = 0; }
-    attemptsEl.textContent = n;
-    return n;
-  }
-  function bumpAttempts() {
-    var n = loadAttempts() + 1;
-    try { localStorage.setItem(STORAGE_KEY, String(n)); } catch (e) {}
-    attemptsEl.textContent = n;
+  /* ---- Счётчики в localStorage ---- */
+  function getNum(key){ var n=0; try{ n=parseInt(localStorage.getItem(key),10)||0; }catch(e){ n=0; } return n; }
+  function setNum(key,v){ try{ localStorage.setItem(key,String(v)); }catch(e){} }
+  function loadMeta(){
+    attemptsEl.textContent = getNum(KEY_ATTEMPTS);
+    var b = getNum(KEY_BEST);
+    bestEl.textContent = getNum(KEY_ATTEMPTS) > 0 ? (b + " / " + NUM) : "—";
   }
 
-  // Рендер вопросов
-  function renderQuiz() {
+  /* ---- Перемешивание (Фишер–Йейтс) ---- */
+  function shuffle(arr){
+    var a = arr.slice();
+    for (var i=a.length-1; i>0; i--){
+      var j = Math.floor(Math.random()*(i+1));
+      var t=a[i]; a[i]=a[j]; a[j]=t;
+    }
+    return a;
+  }
+  function pickQuestions(){ return shuffle(BANK).slice(0, NUM); }
+
+  /* ---- Рендер ---- */
+  function renderQuiz(){
     form.innerHTML = "";
-    QUESTIONS.forEach(function (item, qi) {
+    current = pickQuestions();
+    current.forEach(function(item, qi){
       var card = document.createElement("div");
       card.className = "quiz-question";
 
+      var tag = item.type === "multiple" ? '<span class="q-tag">несколько ответов</span>'
+              : item.type === "match"    ? '<span class="q-tag">сопоставление</span>'
+              : '';
+
       var head = document.createElement("div");
       head.className = "q-head";
-      head.innerHTML = '<span class="q-num">' + (qi + 1) + '</span>' +
-                       '<span class="q-text">' + item.q + '</span>';
+      head.innerHTML = '<span class="q-num">'+(qi+1)+'</span>'+
+                       '<span class="q-text">'+item.q+tag+'</span>';
       card.appendChild(head);
 
-      var opts = document.createElement("div");
-      opts.className = "options";
-      item.options.forEach(function (opt, oi) {
-        var label = document.createElement("label");
-        label.className = "option";
-        label.setAttribute("data-q", qi);
-        label.setAttribute("data-o", oi);
-        label.innerHTML =
-          '<input type="radio" name="q' + qi + '" value="' + oi + '">' +
-          '<span class="opt-text">' + opt + '</span>' +
-          '<span class="mark"></span>';
-        opts.appendChild(label);
-      });
-      card.appendChild(opts);
+      if (item.image){
+        var img = document.createElement("div");
+        img.className = "q-image";
+        img.innerHTML = '<div class="emoji-card">'+item.image+'</div>';
+        card.appendChild(img);
+      }
+
+      if (item.type === "match"){
+        var list = document.createElement("div");
+        list.className = "match-list";
+        item.left.forEach(function(leftText, ri){
+          var row = document.createElement("div");
+          row.className = "match-row";
+          row.setAttribute("data-q", qi);
+          row.setAttribute("data-row", ri);
+          var sel = '<select class="match-select" data-q="'+qi+'" data-row="'+ri+'">';
+          sel += '<option value="">— выберите —</option>';
+          item.right.forEach(function(rt, oi){
+            sel += '<option value="'+oi+'">'+rt+'</option>';
+          });
+          sel += '</select>';
+          row.innerHTML = '<span class="match-left">'+leftText+'</span>'+
+                          '<span class="match-arrow">→</span>'+ sel;
+          list.appendChild(row);
+        });
+        card.appendChild(list);
+      } else {
+        var inputType = item.type === "multiple" ? "checkbox" : "radio";
+        var opts = document.createElement("div");
+        opts.className = "options";
+        item.options.forEach(function(opt, oi){
+          var label = document.createElement("label");
+          label.className = "option";
+          label.setAttribute("data-q", qi);
+          label.setAttribute("data-o", oi);
+          label.innerHTML =
+            '<input type="'+inputType+'" name="q'+qi+'" value="'+oi+'">'+
+            '<span class="opt-text">'+opt+'</span>'+
+            '<span class="mark"></span>';
+          opts.appendChild(label);
+        });
+        card.appendChild(opts);
+      }
       form.appendChild(card);
     });
   }
 
-  // Проверка результата
-  function checkQuiz() {
-    if (checked) return;
+  /* ---- Проверка ответа на один вопрос ---- */
+  function gradeSingle(item, qi){
+    var chosenInput = form.querySelector('input[name="q'+qi+'"]:checked');
+    var chosen = parseInt(chosenInput.value, 10);
+    form.querySelectorAll('.option[data-q="'+qi+'"]').forEach(function(label){
+      var oi = parseInt(label.getAttribute("data-o"),10);
+      var mark = label.querySelector(".mark");
+      label.querySelector("input").disabled = true;
+      if (oi === item.correct){ label.classList.add("correct"); mark.textContent="✓"; }
+      else if (oi === chosen){ label.classList.add("wrong"); mark.textContent="✗"; }
+    });
+    return chosen === item.correct ? 1 : 0;
+  }
 
-    // Все ли вопросы отвечены
-    for (var i = 0; i < QUESTIONS.length; i++) {
-      if (!form.querySelector('input[name="q' + i + '"]:checked')) {
-        alert("Пожалуйста, ответьте на все 10 вопросов. Остался вопрос №" + (i + 1) + ".");
+  function gradeMultiple(item, qi){
+    var chosen = [];
+    form.querySelectorAll('input[name="q'+qi+'"]:checked').forEach(function(inp){
+      chosen.push(parseInt(inp.value,10));
+    });
+    form.querySelectorAll('.option[data-q="'+qi+'"]').forEach(function(label){
+      var oi = parseInt(label.getAttribute("data-o"),10);
+      var mark = label.querySelector(".mark");
+      label.querySelector("input").disabled = true;
+      var isCorrect = item.correct.indexOf(oi) !== -1;
+      var isChosen = chosen.indexOf(oi) !== -1;
+      if (isCorrect){ label.classList.add("correct"); mark.textContent="✓"; }
+      else if (isChosen){ label.classList.add("wrong"); mark.textContent="✗"; }
+    });
+    // балл только если выбран ровно правильный набор
+    var ok = chosen.length === item.correct.length &&
+             item.correct.every(function(c){ return chosen.indexOf(c) !== -1; });
+    return ok ? 1 : 0;
+  }
+
+  function gradeMatch(item, qi){
+    var allOk = true;
+    item.left.forEach(function(_, ri){
+      var sel = form.querySelector('.match-select[data-q="'+qi+'"][data-row="'+ri+'"]');
+      var row = form.querySelector('.match-row[data-q="'+qi+'"][data-row="'+ri+'"]');
+      sel.disabled = true;
+      var chosen = sel.value === "" ? -1 : parseInt(sel.value,10);
+      if (chosen === item.correct[ri]){
+        row.classList.add("correct");
+      } else {
+        row.classList.add("wrong");
+        allOk = false;
+        var fix = document.createElement("div");
+        fix.className = "match-fix";
+        fix.textContent = "Верно: " + item.right[item.correct[ri]];
+        row.appendChild(fix);
+      }
+    });
+    return allOk ? 1 : 0;
+  }
+
+  /* ---- Проверка всего теста ---- */
+  function isAnswered(item, qi){
+    if (item.type === "match"){
+      var sels = form.querySelectorAll('.match-select[data-q="'+qi+'"]');
+      for (var i=0;i<sels.length;i++){ if (sels[i].value === "") return false; }
+      return true;
+    }
+    return !!form.querySelector('input[name="q'+qi+'"]:checked');
+  }
+
+  function checkQuiz(){
+    if (checked) return;
+    for (var i=0;i<current.length;i++){
+      if (!isAnswered(current[i], i)){
+        alert("Пожалуйста, ответьте на все вопросы. Не заполнен вопрос №"+(i+1)+".");
         return;
       }
     }
-
     var score = 0;
-    QUESTIONS.forEach(function (item, qi) {
-      var chosen = parseInt(form.querySelector('input[name="q' + qi + '"]:checked').value, 10);
-      var labels = form.querySelectorAll('.option[data-q="' + qi + '"]');
-      labels.forEach(function (label) {
-        var oi = parseInt(label.getAttribute("data-o"), 10);
-        var input = label.querySelector("input");
-        input.disabled = true;
-        var mark = label.querySelector(".mark");
-        if (oi === item.correct) {
-          label.classList.add("correct");
-          mark.textContent = "✓";
-        } else if (oi === chosen) {
-          label.classList.add("wrong");
-          mark.textContent = "✗";
-        }
-      });
-      if (chosen === item.correct) score++;
+    current.forEach(function(item, qi){
+      if (item.type === "multiple") score += gradeMultiple(item, qi);
+      else if (item.type === "match") score += gradeMatch(item, qi);
+      else score += gradeSingle(item, qi);
     });
 
     checked = true;
-    bumpAttempts();
+    // счётчик прохождений
+    var attempts = getNum(KEY_ATTEMPTS) + 1;
+    setNum(KEY_ATTEMPTS, attempts);
+    // лучший результат
+    var best = getNum(KEY_BEST);
+    if (score > best){ best = score; setNum(KEY_BEST, best); }
+    loadMeta();
     showResult(score);
   }
 
-  // Показ итогового балла
-  function showResult(score) {
+  function showResult(score){
     document.getElementById("score-num").textContent = score;
-    var pct = Math.round((score / QUESTIONS.length) * 100);
+    var pct = Math.round((score / NUM) * 100);
     var title, text;
-    if (pct >= 90) {
-      title = "🎉 Превосходно!";
-      text = "Ты отлично усвоил материалы блога и готов организовать настоящий праздник.";
-    } else if (pct >= 70) {
-      title = "👍 Хороший результат!";
-      text = "Ты уверенно ориентируешься в теме. Ещё чуть-чуть — и будет идеально.";
-    } else if (pct >= 50) {
-      title = "🙂 Неплохо!";
-      text = "Основа есть, но стоит перечитать разделы «Теория» и «Практика».";
-    } else {
-      title = "📚 Есть над чем поработать";
-      text = "Загляни ещё раз в разделы «Теория» и «Практика» — и попробуй снова.";
-    }
+    if (pct >= 90){ title="🎉 Превосходно!"; text="Ты отлично усвоил материалы блога и готов организовать настоящий праздник."; }
+    else if (pct >= 70){ title="👍 Хороший результат!"; text="Ты уверенно ориентируешься в теме. Ещё чуть-чуть — и будет идеально."; }
+    else if (pct >= 50){ title="🙂 Неплохо!"; text="Основа есть, но стоит перечитать разделы «Теория» и «Практика»."; }
+    else { title="📚 Есть над чем поработать"; text="Загляни ещё раз в разделы «Теория» и «Практика» — и попробуй снова."; }
     document.getElementById("result-title").textContent = title + " " + pct + "%";
     document.getElementById("result-text").textContent = text;
     resultBox.classList.remove("hidden");
     checkBtn.style.display = "none";
     document.getElementById("hint").style.display = "none";
-    resultBox.scrollIntoView({ behavior: "smooth", block: "center" });
+    resultBox.scrollIntoView({ behavior:"smooth", block:"center" });
   }
 
-  // Пройти заново
-  function resetQuiz() {
+  function resetQuiz(){
     checked = false;
     renderQuiz();
     resultBox.classList.add("hidden");
     checkBtn.style.display = "";
     document.getElementById("hint").style.display = "";
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    window.scrollTo({ top:0, behavior:"smooth" });
   }
 
   checkBtn.addEventListener("click", checkQuiz);
   retryBtn.addEventListener("click", resetQuiz);
 
-  loadAttempts();
+  loadMeta();
   renderQuiz();
 </script>
 </body>

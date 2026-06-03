@@ -3,260 +3,95 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Лабораторная работа №2 | Проект блога «От идеи до праздника»</title>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <title>Проект блога (ЛР №2) — От идеи до праздника</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Montserrat', sans-serif; background: #fef6f0; color: #4a3728; line-height: 1.6; padding: 0 20px; }
+        .wrapper { max-width: 1200px; margin: 0 auto; padding: 20px 0 60px; }
 
-        body {
-            font-family: 'Montserrat', sans-serif;
-            background: linear-gradient(135deg, #fef6f0 0%, #fce4da 100%);
-            color: #4a3728;
-            line-height: 1.6;
-            padding: 30px 20px;
-        }
+        /* Единая шапка */
+        header { display: flex; align-items: center; padding: 20px 0; border-bottom: 2px solid #e6a17a; margin-bottom: 30px; }
+        .logo { font-size: 1.8rem; font-weight: 700; color: #b85c3a; text-decoration: none; display: flex; align-items: center; gap: 10px; }
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            background: rgba(255, 255, 255, 0.85);
-            padding: 40px 35px;
-            border-radius: 30px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.08);
-        }
+        /* Единая сетка + сайдбар */
+        .page-layout { display: grid; grid-template-columns: 1fr 260px; gap: 36px; align-items: start; }
+        .sidebar { background: #fff; border-radius: 20px; box-shadow: 0 8px 24px rgba(74,55,40,.08); padding: 26px 22px; position: sticky; top: 20px; }
+        .sidebar .nav-title { font-weight: 700; font-size: 1.05rem; color: #b85c3a; border-left: 4px solid #e6a17a; padding-left: 12px; margin-bottom: 14px; }
+        .sidebar ul { list-style: none; }
+        .sidebar ul li { margin-bottom: 4px; }
+        .sidebar ul li a { display: flex; align-items: center; gap: 8px; text-decoration: none; color: #4a3728; padding: 9px 13px; border-radius: 12px; font-weight: 500; font-size: 0.93rem; transition: all 0.2s; }
+        .sidebar ul li a:hover { background: #e6a17a; color: #fff; padding-left: 18px; }
+        .sidebar ul li a.active { background: #b85c3a; color: #fff; font-weight: 600; }
+        @media (max-width: 800px) { .page-layout { grid-template-columns: 1fr; } .sidebar { position: static; } }
 
-        h1 {
-            font-size: 2rem;
-            font-weight: 700;
-            color: #b85c3a;
-            text-align: center;
-            margin-bottom: 6px;
-        }
+        /* Заголовок страницы */
+        .page-title { text-align: center; margin-bottom: 36px; }
+        .page-title h1 { font-size: 2.2rem; font-weight: 700; color: #b85c3a; margin-bottom: 8px; }
+        .page-title p { font-size: 1rem; color: #7f5d4c; max-width: 640px; margin: 0 auto; }
 
-        h1 span {
-            display: block;
-            font-size: 1rem;
-            font-weight: 400;
-            color: #9c7a6b;
-            margin-top: 6px;
-        }
+        /* Карточка-секция */
+        .panel { background: #fff; border-radius: 20px; box-shadow: 0 8px 24px rgba(74,55,40,.07); padding: 32px 36px; margin-bottom: 28px; }
+        .panel h2 { font-size: 1.4rem; font-weight: 700; color: #b85c3a; margin-bottom: 6px; display: flex; align-items: center; gap: 10px; }
+        .panel .subtitle { font-size: 0.92rem; color: #7f5d4c; margin-bottom: 22px; }
 
-        h2 {
-            font-size: 1.5rem;
-            font-weight: 600;
-            color: #9f5f3e;
-            margin: 40px 0 8px;
-            padding-bottom: 8px;
-            border-bottom: 3px solid #f3c9b0;
-            position: relative;
-        }
+        /* Таблица */
+        .project-table { width: 100%; border-collapse: collapse; border-radius: 16px; overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.06); font-size: 0.95rem; }
+        .project-table thead { background: #e6a17a; color: #fff; }
+        .project-table th { padding: 14px 20px; font-weight: 600; text-align: left; font-size: 1rem; }
+        .project-table td { padding: 14px 20px; background: #fffdfb; border-bottom: 1px solid #f5e0d4; vertical-align: top; }
+        .project-table tbody tr:nth-child(even) td { background: #fbefe8; }
+        .project-table tbody tr:hover td { background: #f7e1d4; transition: background 0.2s; }
+        .project-table tbody tr:last-child td { border-bottom: none; }
+        .q-col { font-weight: 600; color: #7f4d32; width: 28%; background: #faeade !important; }
 
-        h2::after {
-            content: '';
-            position: absolute;
-            bottom: -3px;
-            left: 0;
-            width: 70px;
-            height: 3px;
-            background: #e6a17a;
-        }
+        /* Схема */
+        .schema { display: flex; flex-direction: column; align-items: center; gap: 0; }
+        .schema-level { display: flex; flex-wrap: wrap; justify-content: center; gap: 14px; width: 100%; }
+        .schema-arrow { text-align: center; font-size: 1.8rem; color: #d9a787; line-height: 1; padding: 6px 0; }
+        .schema-card { background: #fffbf9; border: 2px solid #f3c9b0; border-radius: 18px; padding: 14px 20px; min-width: 140px; max-width: 240px; text-align: center; font-weight: 500; color: #5a3c2c; box-shadow: 0 3px 8px rgba(0,0,0,0.04); transition: transform 0.2s, box-shadow 0.2s; flex: 0 1 auto; }
+        .schema-card:hover { transform: translateY(-3px); box-shadow: 0 10px 18px rgba(230,130,70,0.12); }
+        .schema-card.main-card { background: #fce4d6; border-color: #dba882; font-weight: 700; font-size: 1.05rem; padding: 18px 30px; min-width: 220px; }
+        .schema-card.sub-card { background: #fdf3ec; border-color: #eecbb8; }
+        .schema-card.child-card { background: #fef8f4; border-color: #f2d8c9; font-size: 0.88rem; padding: 10px 16px; min-width: 110px; }
+        .badge { display: inline-block; background: #e6a17a; color: #fff; font-size: 0.68rem; font-weight: 700; padding: 2px 10px; border-radius: 30px; margin-bottom: 6px; letter-spacing: 0.3px; }
+        .card-sub { font-weight: 400; font-size: 0.83rem; color: #8f6e5c; margin-top: 4px; line-height: 1.5; }
+        .schema-note { margin-top: 14px; font-size: 0.83rem; text-align: center; color: #a07b68; font-style: italic; }
 
-        .subtitle {
-            font-size: 0.95rem;
-            color: #7f5d4c;
-            margin-bottom: 24px;
-        }
-
-        /* === Таблица === */
-        .project-table {
-            width: 100%;
-            border-collapse: collapse;
-            border-radius: 16px;
-            overflow: hidden;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.06);
-            margin: 16px 0 36px;
-            font-size: 0.95rem;
-        }
-
-        .project-table thead {
-            background: #e6a17a;
-            color: #fff;
-        }
-
-        .project-table th {
-            padding: 14px 20px;
-            font-weight: 600;
-            text-align: left;
-            font-size: 1rem;
-        }
-
-        .project-table td {
-            padding: 14px 20px;
-            background: #fffdfb;
-            border-bottom: 1px solid #f5e0d4;
-            vertical-align: top;
-        }
-
-        .project-table tbody tr:nth-child(even) td {
-            background: #fbefe8;
-        }
-
-        .project-table tbody tr:hover td {
-            background: #f7e1d4;
-            transition: background 0.2s;
-        }
-
-        .project-table tbody tr:last-child td {
-            border-bottom: none;
-        }
-
-        .q-col {
-            font-weight: 600;
-            color: #7f4d32;
-            width: 28%;
-            background: #faeade !important;
-        }
-
-        /* === Схема === */
-        .schema {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 0;
-            margin: 20px 0;
-        }
-
-        .schema-level {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 14px;
-            width: 100%;
-        }
-
-        .schema-arrow {
-            text-align: center;
-            font-size: 1.8rem;
-            color: #d9a787;
-            line-height: 1;
-            padding: 6px 0;
-        }
-
-        .schema-card {
-            background: #fffbf9;
-            border: 2px solid #f3c9b0;
-            border-radius: 18px;
-            padding: 14px 20px;
-            min-width: 140px;
-            max-width: 240px;
-            text-align: center;
-            font-weight: 500;
-            color: #5a3c2c;
-            box-shadow: 0 3px 8px rgba(0,0,0,0.04);
-            transition: transform 0.2s, box-shadow 0.2s;
-            flex: 0 1 auto;
-        }
-
-        .schema-card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 18px rgba(230,130,70,0.12);
-        }
-
-        .schema-card.main-card {
-            background: #fce4d6;
-            border-color: #dba882;
-            font-weight: 700;
-            font-size: 1.05rem;
-            padding: 18px 30px;
-            min-width: 220px;
-        }
-
-        .schema-card.sub-card {
-            background: #fdf3ec;
-            border-color: #eecbb8;
-        }
-
-        .schema-card.child-card {
-            background: #fef8f4;
-            border-color: #f2d8c9;
-            font-size: 0.88rem;
-            padding: 10px 16px;
-            min-width: 110px;
-        }
-
-        .badge {
-            display: inline-block;
-            background: #e6a17a;
-            color: #fff;
-            font-size: 0.68rem;
-            font-weight: 700;
-            padding: 2px 10px;
-            border-radius: 30px;
-            margin-bottom: 6px;
-            letter-spacing: 0.3px;
-        }
-
-        .card-sub {
-            font-weight: 400;
-            font-size: 0.83rem;
-            color: #8f6e5c;
-            margin-top: 4px;
-            line-height: 1.5;
-        }
-
-        .schema-note {
-            margin-top: 14px;
-            font-size: 0.83rem;
-            text-align: center;
-            color: #a07b68;
-            font-style: italic;
-        }
-
-        .footer-note {
-            margin-top: 36px;
-            font-size: 0.83rem;
-            text-align: center;
-            color: #8c6b5a;
-            border-top: 1px solid #f3d6c5;
-            padding-top: 18px;
-        }
+        /* Подвал */
+        footer { margin-top: 50px; padding: 22px 0; text-align: center; border-top: 2px solid #e6a17a; font-size: 0.9rem; color: #4a3728; font-weight: 500; }
+        footer span { color: #b85c3a; }
 
         @media (max-width: 700px) {
-            .container { padding: 20px 14px; }
-            h1 { font-size: 1.5rem; }
+            .panel { padding: 24px 18px; }
+            .page-title h1 { font-size: 1.7rem; }
             .project-table { font-size: 0.85rem; }
             .project-table th, .project-table td { padding: 10px 12px; }
             .schema-card { min-width: 100px; font-size: 0.85rem; padding: 10px 12px; }
             .schema-card.main-card { min-width: 160px; padding: 14px 18px; }
         }
-
-        @media print {
-            body { background: white !important; padding: 0.4in; }
-            .container { background: white !important; box-shadow: none; border-radius: 0; padding: 0; }
-            .project-table { box-shadow: none; border: 1px solid #aaa; }
-            .project-table thead { background: #ddd !important; color: #000 !important; }
-            .project-table td { background: white !important; border-color: #aaa !important; }
-            .project-table tbody tr:nth-child(even) td { background: #f5f5f5 !important; }
-            .q-col { background: #eee !important; }
-            .schema-card { background: white !important; border-color: #999 !important; box-shadow: none !important; }
-            .schema-card.main-card { background: #eee !important; }
-            .badge { background: #999 !important; }
-        }
     </style>
 </head>
 <body>
-<div class="container">
+<div class="wrapper">
+  <header>
+    <a href="index.html" class="logo">🎉 От идеи до праздника</a>
+  </header>
 
-    <h1>
-        Лабораторная работа №2
-        <span>Проект блога «От идеи до праздника»</span>
-    </h1>
+  <div class="page-layout">
+  <div>
+
+    <div class="page-title">
+      <h1>📐 Проект блога (ЛР №2)</h1>
+      <p>Таблица проектирования и схема структуры блога «От идеи до праздника»</p>
+    </div>
 
     <!-- ===== ТАБЛИЦА ===== -->
-    <h2>Таблица проектирования блога</h2>
-    <p class="subtitle">Обоснование ключевых решений при создании обучающего блога</p>
+    <div class="panel">
+      <h2>📋 Таблица проектирования блога</h2>
+      <p class="subtitle">Обоснование ключевых решений при создании обучающего блога</p>
 
-    <table class="project-table">
+      <table class="project-table">
         <thead>
             <tr>
                 <th>Вопрос</th>
@@ -282,7 +117,7 @@
             </tr>
             <tr>
                 <td class="q-col">Основные функции и сервисы</td>
-                <td>Статьи по теоретическим рубрикам; горизонтальное и вертикальное меню; встроенные видеоплееры (мультфильм, видеовизитка); обучающий комикс; архив лабораторных работ курса; страница «Об авторе».</td>
+                <td>Статьи по теоретическим рубрикам; вертикальное меню-навигация; встроенные видеоплееры (мультфильм, видеовизитка); обучающий комикс; архив лабораторных работ курса; страница «Об авторе».</td>
             </tr>
             <tr>
                 <td class="q-col">Продвижение и количество участников</td>
@@ -297,18 +132,20 @@
                 <td><strong>По дизайну:</strong> минималистичные блоги с крупной типографикой и тёплой цветовой гаммой.<br><strong>По функционалу:</strong> учебные блоги студентов на Blogger (sportyourdrive.blogspot.com, artofstealthandespionage.blogspot.com).<br><strong>По наполнению:</strong> сайты-инструкции по организации праздников (event.ru, статьи на vc.ru).</td>
             </tr>
         </tbody>
-    </table>
+      </table>
+    </div>
 
     <!-- ===== СХЕМА ===== -->
-    <h2>Схема структуры блога</h2>
-    <p class="subtitle">Иерархия страниц и разделов блога «От идеи до праздника»</p>
+    <div class="panel">
+      <h2>🗂️ Схема структуры блога</h2>
+      <p class="subtitle">Иерархия страниц и разделов блога «От идеи до праздника»</p>
 
-    <div class="schema">
+      <div class="schema">
         <!-- Уровень 1: Главная -->
         <div class="schema-level">
             <div class="schema-card main-card">
                 <span class="badge">Главная страница</span><br>
-                Шапка · Горизонтальное меню<br>
+                Шапка · Навигация<br>
                 <span class="card-sub">Приветственный блок · Анонсы материалов · Подвал</span>
             </div>
         </div>
@@ -369,14 +206,28 @@
             </div>
         </div>
 
-        <p class="schema-note">← Все разделы доступны из вертикального и горизонтального меню →</p>
+        <p class="schema-note">← Все разделы доступны из вертикального меню навигации →</p>
+      </div>
     </div>
 
-    <p class="footer-note">
-        Лабораторная работа выполнена в рамках курса «Информационно-коммуникационные технологии»<br>
-        Блог «От идеи до праздника» · 2026
-    </p>
+  </div><!-- /content -->
 
+  <aside class="sidebar">
+    <div class="nav-title">📂 Разделы блога</div>
+    <ul>
+      <li><a href="index.html">🏠 Главная</a></li>
+      <li><a href="theory.html">📖 Теория</a></li>
+      <li><a href="practice.html">🔧 Практика</a></li>
+      <li><a href="quiz.html">🧠 Тестирование</a></li>
+      <li><a href="media.html">🎬 Медиа</a></li>
+      <li><a href="labs.html" class="active">📚 Лабораторные работы</a></li>
+      <li><a href="about.html">🧑‍🎤 Об авторе</a></li>
+    </ul>
+  </aside>
+
+  </div><!-- /page-layout -->
+
+  <footer>© 2026 <span>«От идеи до праздника»</span> · Алексеева Анастасия Вячеславовна</footer>
 </div>
 </body>
 </html>

@@ -19,38 +19,29 @@
         }
 
         .wrapper {
-            max-width: 1280px;
+            max-width: 1200px;
             margin: 0 auto;
-            padding: 20px 0 0;
+            padding: 20px 0 60px;
         }
 
         /* Header */
         header {
-            background: #fff9f4;
-            border-radius: 24px 24px 0 0;
-            padding: 20px 30px;
-            box-shadow: 0 4px 20px rgba(184, 92, 58, 0.08);
             display: flex;
             align-items: center;
+            padding: 20px 0;
             border-bottom: 2px solid #e6a17a;
+            margin-bottom: 30px;
         }
 
-        .logo-area {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .logo-icon { font-size: 2.2rem; }
-
-        .site-title {
-            font-size: 1.5rem;
+        .logo {
+            font-size: 1.8rem;
             font-weight: 700;
             color: #b85c3a;
-            letter-spacing: -0.5px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
-
-        .site-title span { font-weight: 300; color: #e6a17a; }
 
         /* Main layout — эталонная сетка (как на практика.html) */
         .page-layout { display: grid; grid-template-columns: 1fr 260px; gap: 36px; align-items: start; margin: 30px 0; }
@@ -176,31 +167,27 @@
 
         /* Footer */
         footer {
-            background: #4a3728;
-            color: #fef6f0;
-            border-radius: 0 0 24px 24px;
-            padding: 18px 30px;
+            margin-top: 50px;
+            padding: 22px 0;
             text-align: center;
+            border-top: 2px solid #e6a17a;
             font-size: 0.9rem;
-            margin-top: 10px;
-            margin-bottom: 30px;
+            color: #4a3728;
+            font-weight: 500;
         }
 
-        footer span { color: #e6a17a; }
+        footer span { color: #b85c3a; }
 
         /* Responsive */
         @media (max-width: 800px) {
             .page-layout { grid-template-columns: 1fr; }
             .sidebar { position: static; }
-            header { flex-direction: column; align-items: stretch; gap: 12px; }
-            .logo-area { justify-content: center; }
             .cards-grid { grid-template-columns: 1fr; }
         }
 
         @media (max-width: 480px) {
             body { padding: 0 10px; }
             section { padding: 20px 16px; }
-            .site-title { font-size: 1.2rem; }
         }
     </style>
 </head>
@@ -210,10 +197,7 @@
 
     <!-- Header -->
     <header>
-        <div class="logo-area">
-            <span class="logo-icon">🎉</span>
-            <div class="site-title">От идеи <span>до праздника</span></div>
-        </div>
+        <a href="index.html" class="logo">🎉 От идеи до праздника</a>
     </header>
 
     <!-- Main layout -->
@@ -271,6 +255,7 @@
                 <li><a href="index.html" class="active">🏠 Главная</a></li>
                 <li><a href="theory.html">📖 Теория</a></li>
                 <li><a href="practice.html">🔧 Практика</a></li>
+                <li><a href="quiz.html">🧠 Тестирование</a></li>
                 <li><a href="media.html">🎬 Медиа</a></li>
                 <li><a href="labs.html">📚 Лабораторные работы</a></li>
                 <li><a href="about.html">🧑‍🎤 Об авторе</a></li>
@@ -293,7 +278,7 @@
 
     <!-- Footer -->
     <footer>
-        &copy; 2026 <span>«От идеи до праздника»</span> — учимся делать события незабываемыми
+        © 2026 <span>«От идеи до праздника»</span> · Алексеева Анастасия Вячеславовна
     </footer>
 
 </div>

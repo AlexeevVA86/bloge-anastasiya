@@ -10,7 +10,7 @@
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body { font-family: 'Montserrat', sans-serif; background-color: #fef6f0; color: #4a3728; line-height: 1.6; padding: 0 20px; }
-    .wrapper { max-width: 1300px; margin: 0 auto; padding: 20px 0; }
+    .wrapper { max-width: 1200px; margin: 0 auto; padding: 20px 0 60px; }
     header { display: flex; align-items: center; padding: 20px 0; border-bottom: 2px solid #e6a17a; margin-bottom: 30px; }
     .logo { font-size: 1.8rem; font-weight: 700; color: #b85c3a; display: flex; align-items: center; gap: 10px; text-decoration: none; }
     nav ul { display: flex; list-style: none; gap: 24px; flex-wrap: wrap; }
@@ -42,7 +42,8 @@
     .quick-nav ul li a { text-decoration: none; color: #4a3728; font-weight: 500; font-size: 0.92rem; transition: color 0.3s; display: flex; align-items: center; gap: 8px; }
     .quick-nav ul li a:hover { color: #b85c3a; }
     .quick-nav ul li a::before { content: "→"; color: #e6a17a; font-weight: 700; }
-    footer { margin-top: 60px; padding: 25px 0; text-align: center; border-top: 2px solid #e6a17a; color: #4a3728; font-weight: 500; font-size: 0.95rem; }
+    footer { margin-top: 50px; padding: 22px 0; text-align: center; border-top: 2px solid #e6a17a; font-size: 0.9rem; color: #4a3728; font-weight: 500; }
+    footer span { color: #b85c3a; }
     @media (max-width: 800px) {
       .page-layout { grid-template-columns: 1fr; }
       .sidebar { position: static; }
@@ -150,6 +151,7 @@
         <li><a href="index.html">🏠 Главная</a></li>
         <li><a href="theory.html" class="active">📖 Теория</a></li>
         <li><a href="practice.html">🔧 Практика</a></li>
+        <li><a href="quiz.html">🧠 Тестирование</a></li>
         <li><a href="media.html">🎬 Медиа</a></li>
         <li><a href="labs.html">📚 Лабораторные работы</a></li>
         <li><a href="about.html">🧑‍🎤 Об авторе</a></li>
@@ -165,7 +167,7 @@
     </aside>
   </div>
 
-  <footer>© 2026 «От идеи до праздника»</footer>
+  <footer>© 2026 <span>«От идеи до праздника»</span> · Алексеева Анастасия Вячеславовна</footer>
 </div>
 </body>
 </html>

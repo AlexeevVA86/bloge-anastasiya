@@ -121,8 +121,8 @@
     </div>
 
     <div class="quiz-meta">
-      <span class="quiz-chip">📊 Тест пройден раз: <strong id="attempts">0</strong></span>
-      <span class="quiz-chip">🏆 Лучший результат: <strong id="best">—</strong></span>
+      <span class="quiz-chip">🌍 Всего прохождений (всеми): <strong id="attempts">…</strong></span>
+      <span class="quiz-chip">🏆 Ваш лучший результат: <strong id="best">—</strong></span>
     </div>
 
     <form id="quiz-form" class="quiz"></form>
@@ -253,8 +253,17 @@
   ];
 
   var NUM = 10;                     // вопросов в одном прохождении
-  var KEY_ATTEMPTS = "quiz_attempts_otidei";
-  var KEY_BEST = "quiz_best_otidei";
+  var KEY_BEST = "quiz_best_otidei";          // лучший результат — персональный (localStorage)
+  var KEY_LOCAL_ATTEMPTS = "quiz_attempts_otidei"; // локальный фолбэк-счётчик
+
+  /* Общий счётчик прохождений (для всех пользователей) — Abacus API.
+     Бесплатный сервис без регистрации, с CORS. Значение хранится на сервере,
+     поэтому счётчик общий и сохраняется между визитами и устройствами. */
+  var COUNTER_NS = "bloge-anastasiya";   // пространство имён (домен/проект)
+  var COUNTER_KEY = "quiz-attempts";     // ключ счётчика
+  var COUNTER_BASE = "https://abacus.jasoncameron.dev";
+  var COUNTER_GET = COUNTER_BASE + "/get/" + COUNTER_NS + "/" + COUNTER_KEY;
+  var COUNTER_HIT = COUNTER_BASE + "/hit/" + COUNTER_NS + "/" + COUNTER_KEY;
 
   var form = document.getElementById("quiz-form");
   var checkBtn = document.getElementById("check-btn");
@@ -265,14 +274,47 @@
   var current = [];      // выбранные на это прохождение вопросы
   var checked = false;
 
-  /* ---- Счётчики в localStorage ---- */
+  /* ---- localStorage помощники ---- */
   function getNum(key){ var n=0; try{ n=parseInt(localStorage.getItem(key),10)||0; }catch(e){ n=0; } return n; }
   function setNum(key,v){ try{ localStorage.setItem(key,String(v)); }catch(e){} }
-  function loadMeta(){
-    attemptsEl.textContent = getNum(KEY_ATTEMPTS);
-    var b = getNum(KEY_BEST);
-    bestEl.textContent = getNum(KEY_ATTEMPTS) > 0 ? (b + " / " + NUM) : "—";
+
+  /* ---- Общий счётчик: чтение текущего значения (без инкремента) ---- */
+  function loadGlobalCounter(){
+    fetch(COUNTER_GET).then(function(r){
+      if (!r.ok) throw new Error("get failed");
+      return r.json();
+    }).then(function(data){
+      if (data && typeof data.value === "number"){
+        attemptsEl.textContent = data.value.toLocaleString("ru-RU");
+      } else { throw new Error("bad data"); }
+    }).catch(function(){
+      // Фолбэк: показываем локальный счётчик, если сервис недоступен
+      attemptsEl.textContent = getNum(KEY_LOCAL_ATTEMPTS).toLocaleString("ru-RU") + " (локально)";
+    });
   }
+
+  /* ---- Общий счётчик: инкремент при завершении теста ---- */
+  function bumpGlobalCounter(){
+    // локальный фолбэк-счётчик увеличиваем всегда
+    setNum(KEY_LOCAL_ATTEMPTS, getNum(KEY_LOCAL_ATTEMPTS) + 1);
+    fetch(COUNTER_HIT).then(function(r){
+      if (!r.ok) throw new Error("hit failed");
+      return r.json();
+    }).then(function(data){
+      if (data && typeof data.value === "number"){
+        attemptsEl.textContent = data.value.toLocaleString("ru-RU");
+      } else { throw new Error("bad data"); }
+    }).catch(function(){
+      attemptsEl.textContent = getNum(KEY_LOCAL_ATTEMPTS).toLocaleString("ru-RU") + " (локально)";
+    });
+  }
+
+  /* ---- Лучший результат (персональный) ---- */
+  function loadBest(){
+    var b = getNum(KEY_BEST);
+    bestEl.textContent = b > 0 ? (b + " / " + NUM) : "—";
+  }
+  function loadMeta(){ loadBest(); }
 
   /* ---- Перемешивание (Фишер–Йейтс) ---- */
   function shuffle(arr){
@@ -431,13 +473,12 @@
     });
 
     checked = true;
-    // счётчик прохождений
-    var attempts = getNum(KEY_ATTEMPTS) + 1;
-    setNum(KEY_ATTEMPTS, attempts);
-    // лучший результат
+    // общий счётчик прохождений (для всех пользователей)
+    bumpGlobalCounter();
+    // лучший результат (персональный)
     var best = getNum(KEY_BEST);
     if (score > best){ best = score; setNum(KEY_BEST, best); }
-    loadMeta();
+    loadBest();
     showResult(score);
   }
 
@@ -470,6 +511,7 @@
   retryBtn.addEventListener("click", resetQuiz);
 
   loadMeta();
+  loadGlobalCounter();
   renderQuiz();
 </script>
 </body>
